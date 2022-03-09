@@ -21,7 +21,8 @@ public class Product {
         this.image_link = image_link;
         this.main_description = main_description;
     }
-    public Product(){
+    public Product(String category){
+        this.category = category;
     }
     public Product(int id, String name, String category, double price, String image_link ){
         this.id = id;

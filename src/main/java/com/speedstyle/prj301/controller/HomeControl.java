@@ -33,9 +33,11 @@ public class HomeControl extends HttpServlet {
             throws ServletException, IOException {
 //        response.setContentType("text/html;charset=UTF-8");
             ProductDAO dao = new ProductDAO();
+            
+            List<Product> categoryL = dao.getCategory();
+            request.setAttribute("ListC", categoryL);
             List<Product> list = dao.getNewArrival();
             request.setAttribute("listP", list);
-
             RequestDispatcher rd = request.getRequestDispatcher("/View/home.jsp");
             rd.forward(request, response);
         

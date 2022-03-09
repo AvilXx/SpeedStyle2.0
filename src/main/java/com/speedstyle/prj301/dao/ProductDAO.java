@@ -22,18 +22,19 @@ public class ProductDAO {
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;  
-
+   
     private final static String NEWARRIVAL =" Select top (4) *  from dbo.Product ORDER BY product_id DESC";
     private final static String PRODUCT_DETAIL = "Select * from dbo.Product Where product_id = ?";
     private final static String SIZE = "Select * from dbo.Size";
+    private final static String CATEGORY = "Select * from dbo.Category";
     private final static String PRODUCT_QUANTITY = "Select * from dbo.ProductSize Where product_id = ?";
     private final static String SIMILAR_PRODUCT = "Select * from dbo.Product where category = (select category from dbo.Product where product_id = ? )"
                                                         +" except Select * from dbo.Product where product_id = ?";
 
     public List<Product> getNewArrival(){
-        List<Product> list = new ArrayList<>();
-        String query = NEWARRIVAL;
+        List<Product> list = new ArrayList<>();       
         try{
+            String query = NEWARRIVAL;
             conn = new DBUtils().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
@@ -47,34 +48,46 @@ public class ProductDAO {
         }catch(Exception e){}
         return list;
     }
-//    public List<Product> getAllProductHome(String sortCategory,String search){
-//        List<Product> list = new ArrayList<>();
-//        String query = "Select * from dbo.Product";
-//
-//        if(!sortCategory.equals("")){
-//            query+= " Where category LIKE '"+sortCategory+"'";
-//        }
-//        if(!search.equals("")){
-//            query+= " Where name LIKE '%"+search+"%'";
-//        }
-//        try{
-//            conn = new DBUtils().getConnection();
-//            ps = conn.prepareStatement(query);
-//            rs = ps.executeQuery();
-//            while(rs.next()){
-//                list.add(new Product(rs.getInt(1),
-//                                    rs.getString(2),
-//                                    rs.getString(3),
-//                                    rs.getDouble(4),
-//                                    rs.getString(5)));
-//            }
-//        }catch(Exception e){}
-//        return list;
-//    }
-
-    public Product getAllProduct(String id){
-        String query = PRODUCT_DETAIL;
+    public List<Product> getCategory(){
+        List<Product> list = new ArrayList<>();       
         try{
+            String query = CATEGORY;
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                list.add(new Product(rs.getString(1)));
+            }
+        }catch(Exception e){}
+        return list;
+    }
+    public List<Product> getAllProduct(String sortCategory,String search){
+        List<Product> list = new ArrayList<>();        
+        try{
+            String query = "Select * from dbo.Product";
+            if(!sortCategory.equals("")){
+                query+= " Where category LIKE '"+sortCategory+"'";
+            }
+            if(!search.equals("")){
+                query+= " Where name LIKE '%"+search+"%'";
+            }
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                list.add(new Product(rs.getInt(1),
+                                    rs.getString(2),
+                                    rs.getString(3),
+                                    rs.getDouble(4),
+                                    rs.getString(5)));
+            }
+        }catch(Exception e){}
+        return list;
+    }
+
+    public Product getAllProduct(String id){       
+        try{
+            String query = PRODUCT_DETAIL;
             conn = new DBUtils().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, id);
@@ -93,8 +106,8 @@ public class ProductDAO {
 
     public List<Size> getSize(){
         List<Size> list = new ArrayList<>();
-        String query = SIZE;
         try{
+            String query = SIZE;
             conn = new DBUtils().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
@@ -108,8 +121,8 @@ public class ProductDAO {
 
     public List<Product> getSimilarProduct(String id){
         List<Product> list = new ArrayList<>();
-        String query = SIMILAR_PRODUCT;
         try{
+            String query = SIMILAR_PRODUCT;
             conn = new DBUtils().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, id);
@@ -127,8 +140,8 @@ public class ProductDAO {
     }
 
     public ProductSize getSizeProduct(String id){
-        String query = PRODUCT_QUANTITY;
         try{
+            String query = PRODUCT_QUANTITY;
             conn = new DBUtils().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, id);
@@ -148,7 +161,7 @@ public class ProductDAO {
 
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
-        List<Product> list = dao.getNewArrival();
+        List<Product> list = dao.getAllProduct(null,"");
         for(Product o :list){
             System.out.println(o);
         }

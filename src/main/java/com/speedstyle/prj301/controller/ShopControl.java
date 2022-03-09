@@ -4,8 +4,12 @@
  */
 package com.speedstyle.prj301.controller;
 
+import com.speedstyle.prj301.dao.ProductDAO;
+import com.speedstyle.prj301.dto.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +36,23 @@ public class ShopControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        String sortCategory ="";
+            if(request.getParameter("sortCategory") != null){
+                sortCategory = request.getParameter("sortCategory");
+                if(sortCategory.equals("Biti's")) sortCategory = "Biti''s";
+            }
+        String search ="";
+            if(request.getParameter("search") != null){
+                search = request.getParameter("search");                 
+            }
+
+        ProductDAO dao = new ProductDAO();
+        List<Product> categoryL = dao.getCategory();
+        request.setAttribute("ListC", categoryL);
+        List<Product> list = dao.getAllProduct(sortCategory,search);
+        request.setAttribute("listP", list);
+        RequestDispatcher rd = request.getRequestDispatcher("/View/shop.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
