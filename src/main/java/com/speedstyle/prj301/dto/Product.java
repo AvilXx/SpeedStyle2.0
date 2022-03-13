@@ -4,6 +4,8 @@
  */
 package com.speedstyle.prj301.dto;
 
+import java.text.DecimalFormat;
+
 /**
  *
  * @author AvillXx
@@ -40,7 +42,7 @@ public class Product {
         this.id = id;
     }
 
-    public double getPrice() {
+    public double getPrice() {       
         return price;
     }
 

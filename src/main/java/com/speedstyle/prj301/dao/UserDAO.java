@@ -27,7 +27,6 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-
                 String sql = CHECKLOGIN;
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, username);
