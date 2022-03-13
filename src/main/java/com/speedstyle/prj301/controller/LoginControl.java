@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "LoginControl", urlPatterns = {"/login"})
 public class LoginControl extends HttpServlet {
     private static final String USER = "/View/home.jsp";
-    private static final String ADMIN = "/View/admin.jsp";
+    private static final String ADMIN = "/View/Admin/admin.jsp";
     private static final String ERROR = "/View/signin.jsp";
 
     /**

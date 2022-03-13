@@ -11,6 +11,7 @@ import com.speedstyle.prj301.utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +25,18 @@ public class ProductDAO {
     ResultSet rs = null;  
    
     private final static String NEWARRIVAL =" Select top (4) *  from dbo.Product ORDER BY product_id DESC";
+
+    private final static String ALLPRODUCT = "Select * from dbo.Product";
+    private final static String ALLPRODUCT_PART_SEARCH = " Where name LIKE %?%";
+    private final static String ALLPRODUCT_PART_CATEGORY = " Where category LIKE ?";
+
     private final static String PRODUCT_DETAIL = "Select * from dbo.Product Where product_id = ?";
     private final static String SIZE = "Select * from dbo.Size";
     private final static String CATEGORY = "Select * from dbo.Category";
     private final static String PRODUCT_QUANTITY = "Select * from dbo.ProductSize Where product_id = ?";
     private final static String SIMILAR_PRODUCT = "Select * from dbo.Product where category = (select category from dbo.Product where product_id = ? )"
                                                         +" except Select * from dbo.Product where product_id = ?";
+    
 
     public List<Product> getNewArrival(){
         List<Product> list = new ArrayList<>();       
@@ -64,7 +71,7 @@ public class ProductDAO {
     public List<Product> getAllProduct(String sortCategory,String search){
         List<Product> list = new ArrayList<>();        
         try{
-            String query = "Select * from dbo.Product";
+            String query = ALLPRODUCT;
             if(!sortCategory.equals("")){
                 query+= " Where category LIKE '"+sortCategory+"'";
             }
@@ -161,10 +168,12 @@ public class ProductDAO {
 
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
-        List<Product> list = dao.getAllProduct(null,"");
+        List<Product> list = dao.getAllProduct("Adidas","");
         for(Product o :list){
             System.out.println(o);
         }
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        System.out.println(formatter.format(1000000.0000));
     }
 
 }
