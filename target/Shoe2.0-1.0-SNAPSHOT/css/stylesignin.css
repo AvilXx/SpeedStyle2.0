@@ -6,8 +6,9 @@
     box-sizing: border-box;
 }
 body{
-    background-color: #080710;
+    background-color: black!important;
 }
+
 .background{
     width: 430px;
     height: 520px;

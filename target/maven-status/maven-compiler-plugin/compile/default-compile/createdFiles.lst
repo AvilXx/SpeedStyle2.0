@@ -1,7 +1,10 @@
+com\speedstyle\prj301\controller\LogoutControl.class
 com\speedstyle\prj301\dao\ProductDAO.class
 com\speedstyle\prj301\utils\DBUtils.class
+com\speedstyle\prj301\dto\Size.class
 com\speedstyle\prj301\dto\User.class
 com\speedstyle\prj301\controller\HomeControl.class
+com\speedstyle\prj301\controller\ShopControl.class
 com\speedstyle\prj301\dto\ProductSize.class
 com\speedstyle\prj301\controller\LoginControl.class
 com\speedstyle\prj301\controller\MainController.class
