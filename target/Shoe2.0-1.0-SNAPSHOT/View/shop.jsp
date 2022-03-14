@@ -72,7 +72,7 @@
                                                     </div>
                                                     <h3><a href="product?pid=${o.id}">${o.name}</a></h3>
                                                     <div class="pricing">
-                                                            <p class="price"><span>${o.price}VND</span></p>
+                                                            <p class="price"><span>$${o.price}</span></p>
                                                     </div>
                                                     <p class="bottom-area d-flex px-3">
                                                             <a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>

@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en" style="background-color: cornflowerblue">
+<html lang="en">
 <head>
   <!-- Design by foolishdeveloper.com -->
   <title>Sign In</title>
@@ -42,8 +42,17 @@
 
 </head>
 <body>
-    <div style="background: whitesmoke !important;" >
-        <%@include file="/View/layout/header.jsp" %>
+    
+    <%@include file="/View/layout/header.jsp" %>
+    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="home">Home</a></span> <span>Login</span></p>
+            <h1 class="mb-0 bread">Shop</h1>
+          </div>
+        </div>
+      </div>
     </div>
     <div>
         <div class="background">

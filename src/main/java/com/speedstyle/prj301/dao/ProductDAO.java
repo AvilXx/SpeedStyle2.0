@@ -37,7 +37,7 @@ public class ProductDAO {
     private final static String SIMILAR_PRODUCT = "Select * from dbo.Product where category = (select category from dbo.Product where product_id = ? )"
                                                         +" except Select * from dbo.Product where product_id = ?";
     
-
+    
     public List<Product> getNewArrival(){
         List<Product> list = new ArrayList<>();       
         try{

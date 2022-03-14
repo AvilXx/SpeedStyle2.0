@@ -7,6 +7,7 @@ package com.speedstyle.prj301.controller;
 import com.speedstyle.prj301.dao.UserDAO;
 import com.speedstyle.prj301.dto.User;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +21,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "LoginControl", urlPatterns = {"/login"})
 public class LoginControl extends HttpServlet {
-    private static final String USER = "/View/home.jsp";
-    private static final String ADMIN = "/View/Admin/admin.jsp";
+    private static final String SUCCESS = "/View/home.jsp";
     private static final String ERROR = "/View/signin.jsp";
 
     /**
@@ -48,23 +48,27 @@ public class LoginControl extends HttpServlet {
             } else {
                 UserDAO dao = new UserDAO();
                 User user = dao.checkLogin(username, password);
-                if (user != null) {
-                    if ("1".equals(user.getRoleID())) {
-                        url = ADMIN;
-                    } else {
-                        url = USER;
-                    }
+               if (user != null) {
+                    url = SUCCESS;
                     HttpSession session = request.getSession();
                     session.setAttribute("LOGIN_USER", user);
+                    
                 } else {
                     err = "The account name or password that you have entered is incorrect";
                     request.setAttribute("ERROR_LOGIN", err);
                 }
             }
-
+            if(!err.isEmpty()){
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                rd.forward(request, response);
+            }
         } catch (Exception e) {
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+        } finally{
+            if(url==ERROR){
+                request.getRequestDispatcher(url).forward(request, response);
+            }else{
+                response.sendRedirect(request.getContextPath()+"/home");
+            }       
         }
     }
 

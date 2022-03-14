@@ -58,7 +58,7 @@
     			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
     				<h3>${detail.name}</h3>
 
-    				<p class="price"><span>${detail.price}VND</span></p>
+    				<p class="price"><span>$${detail.price}</span></p>
 
 						<div class="row mt-4">
 							<div class="col-md-6">

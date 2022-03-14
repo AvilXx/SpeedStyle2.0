@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "LogoutControl", urlPatterns = {"/logout"})
 public class LogoutControl extends HttpServlet {
-    private static final String LOGIN = "View/home.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,15 +31,12 @@ public class LogoutControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = LOGIN;
         try {
-            HttpSession ss = request.getSession(false);
-            if (ss != null) {
-                ss.invalidate();
-            }
+            HttpSession ss = request.getSession();
+            ss.removeAttribute("LOGIN_USER");
         } catch (Exception e) {
         } finally {
-            response.sendRedirect(url);
+            response.sendRedirect("home");
         }
         
     }
