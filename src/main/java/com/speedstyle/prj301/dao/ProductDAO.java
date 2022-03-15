@@ -25,7 +25,7 @@ public class ProductDAO {
     ResultSet rs = null;  
    
     private final static String NEWARRIVAL =" Select top (4) *  from dbo.Product ORDER BY product_id DESC";
-
+    
     private final static String ALLPRODUCT = "Select * from dbo.Product";
     private final static String ALLPRODUCT_PART_SEARCH = " Where name LIKE %?%";
     private final static String ALLPRODUCT_PART_CATEGORY = " Where category LIKE ?";
@@ -37,7 +37,8 @@ public class ProductDAO {
     private final static String SIMILAR_PRODUCT = "Select * from dbo.Product where category = (select category from dbo.Product where product_id = ? )"
                                                         +" except Select * from dbo.Product where product_id = ?";
     
-    
+    private final static String DELETE =" Delete from dbo.Product where product_id = ?";
+
     public List<Product> getNewArrival(){
         List<Product> list = new ArrayList<>();       
         try{
@@ -164,7 +165,18 @@ public class ProductDAO {
             }
         }catch(Exception e){}
     return null;
-}
+    }
+
+    public void DeleteProduct(String id){
+        try{
+                String query = DELETE;
+                conn = new DBUtils().getConnection();
+                ps = conn.prepareStatement(query);
+                ps.setString(1, id);
+                ps.executeUpdate();         
+        }catch(Exception e){}
+    }
+
 
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();

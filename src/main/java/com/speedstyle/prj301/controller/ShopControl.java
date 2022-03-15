@@ -51,6 +51,7 @@ public class ShopControl extends HttpServlet {
         request.setAttribute("ListC", categoryL);
         List<Product> list = dao.getAllProduct(sortCategory,search);
         request.setAttribute("listP", list);
+        request.setAttribute("search", search);
         RequestDispatcher rd = request.getRequestDispatcher("/View/shop.jsp");
         rd.forward(request, response);
     }

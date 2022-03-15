@@ -91,10 +91,10 @@
                       <a class="nav-link dropdown-toggle" href="shop" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manager</a>
 
                       <div class="dropdown-menu" aria-labelledby="dropdown04">                  
-                        <a class="dropdown-item" href="shop?sortCategory=${o.category}">USER MANAGEMENT</a>
-                        <a class="dropdown-item" href="shop?sortCategory=${o.category}">ORDER MANAGEMENT</a>  
-                        <a class="dropdown-item" href="shop?sortCategory=${o.category}">PRODUCT MANAGEMENT</a>  
-                        <a class="dropdown-item" href="shop?sortCategory=${o.category}">ADD NEW PRODUCT</a>                         
+                        <a class="dropdown-item" href="admin/user">USER MANAGEMENT</a>
+                        <a class="dropdown-item" href="admin/order">ORDER MANAGEMENT</a>  
+                        <a class="dropdown-item" href="productmanager">PRODUCT MANAGEMENT</a>  
+                        <a class="dropdown-item" href="admin/new">ADD NEW PRODUCT</a>                         
                       </div>
                   </li>
                 </c:if>
