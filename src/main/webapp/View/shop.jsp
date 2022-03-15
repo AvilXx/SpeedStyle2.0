@@ -49,8 +49,17 @@
         </div>
       </div>
     </div>
-
+    
     <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 ftco-animate form-group">
+                    <form>
+                        <input style="search" name="search" placeholder="Search" value="${search}" class="form-control" autocomplete="off">
+                    </form>
+                </div>
+            </div>
+        </div>
     	<div class="container">
     		<div class="row">
     			<div class="col-md-8 col-lg-10 order-md-last">
