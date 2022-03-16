@@ -37,6 +37,8 @@ public class ProductDAO {
     private final static String SIMILAR_PRODUCT = "Select * from dbo.Product where category = (select category from dbo.Product where product_id = ? )"
                                                         +" except Select * from dbo.Product where product_id = ?";
     
+    private final static String SIZEBYID= " select * from dbo.ProductSize where product_id = ?";
+
     private final static String DELETE =" Delete from dbo.Product where product_id = ?";
 
     public List<Product> getNewArrival(){
@@ -93,7 +95,7 @@ public class ProductDAO {
         return list;
     }
 
-    public Product getAllProduct(String id){       
+    public Product getProductByID(String id){       
         try{
             String query = PRODUCT_DETAIL;
             conn = new DBUtils().getConnection();
@@ -126,6 +128,7 @@ public class ProductDAO {
     return list;
     }
 
+   
 
     public List<Product> getSimilarProduct(String id){
         List<Product> list = new ArrayList<>();
@@ -187,5 +190,7 @@ public class ProductDAO {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         System.out.println(formatter.format(1000000.0000));
     }
+
+   
 
 }

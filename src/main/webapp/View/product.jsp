@@ -42,8 +42,8 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Shop</span></p>
-            <h1 class="mb-0 bread">Shop</h1>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="home">Home</a></span> <span>Product</span></p>
+            <h1 class="mb-0 bread">${detail.name}</h1>
           </div>
         </div>
       </div>
@@ -52,10 +52,12 @@
     <section class="ftco-section">
     	<div class="container">
     		<div class="row">
+                     
     			<div class="col-lg-6 mb-5 ftco-animate">
-    				<a href="images/product-1.png" class="image-popup prod-img-bg"><img src="${detail.image_link}" class="img-fluid" alt="Colorlib Template"></a>
+    				<a href="${detail.image_link}" class="image-popup prod-img-bg"><img src="${detail.image_link}" class="img-fluid" alt="Colorlib Template"></a>
     			</div>
     			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                            <form name="f" method="POST">
     				<h3>${detail.name}</h3>
 
     				<p class="price"><span>$${detail.price}</span></p>
@@ -65,11 +67,15 @@
 								<div class="form-group d-flex">
 		              <div class="select-wrap">
 	                  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-	                  <select name="" id="" class="form-control">
+	                
+                         
+                            <select id="size" id="" class="form-control">
+                    
+
                                 <c:forEach items="${Size}" var="o">
-                                    <option value="" style="text-align: center">${o.psize}</option>
+                                    <option value="${o.psize}" style="text-align: center">${o.psize}</option>                                    
                                 </c:forEach>  
-	                  </select>
+                            </select>
 	                </div>
 		            </div>
 							</div>
@@ -80,7 +86,7 @@
 	                   <i class="ion-ios-remove"></i>
 	                	</button>
 	            		</span>
-	             	<input type="text" id="quantity" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+                                <input type="text" id="quantity" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
 	             	<span class="input-group-btn ml-2">
 	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
 	                     <i class="ion-ios-add"></i>
@@ -92,8 +98,12 @@
 	          		<p style="color: #000;">80 piece available</p>
 	          	</div>
           	</div>
-          	<p><a href="cart.html" class="btn btn-black py-3 px-5 mr-2">Add to Cart</a><a href="cart.html" class="btn btn-primary py-3 px-5">Buy now</a></p>
-    			</div>
+                    <p>
+                        <input type="submit" class="btn btn-black py-3 px-5 mr-2" onclick="addtoCart(${detail.id})" value="Add to Cart">
+                        <a href="cart.html" class="btn btn-primary py-3 px-5">Buy now</a>
+                    </p>
+    		</form></div>
+                    
     		</div>
 
 
@@ -202,7 +212,17 @@
 		    });
 		    
 		});
+                
+                
 	</script>
+        <script type="text/Javascript">
+            function addtoCart(id){
+            var size = document.f.size.value;
+            var quantity = document.f.quantity.value;
+            document.f.action = "cart?id="+id+"&quantity="+quantity+"&size="+size;
+            document.f.submit();
+    }    
+        </script>
     
   </body>
 </html>

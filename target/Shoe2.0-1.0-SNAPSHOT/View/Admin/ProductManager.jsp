@@ -38,7 +38,7 @@
     <body class="goto-here">
       
     <%@include file="/View/layout/header.jsp" %>
-    <c:set var="url" value="${pageContext.request.contextPath}"/>
+    <c:set var="url" value="${pageContext.request.contextPath}/productmanager"/>
     <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
