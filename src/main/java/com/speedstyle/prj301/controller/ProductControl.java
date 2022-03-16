@@ -40,7 +40,7 @@ public class ProductControl extends HttpServlet {
         String pid = request.getParameter("pid");
 
         ProductDAO dao = new ProductDAO();
-        Product p = dao.getAllProduct(pid);
+        Product p = dao.getProductByID(pid);
         ProductSize ps = dao.getSizeProduct(pid);
         List<Size> s = dao.getSize();
         List<Product> listSimilar = dao.getSimilarProduct(pid);

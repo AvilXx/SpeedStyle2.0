@@ -101,7 +101,7 @@
                 <c:if test="${role == 0}">  
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
                 </c:if>
-	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+                  <li class="nav-item cta cta-colored"><a href="detail_cart" class="nav-link"><span class="icon-shopping_cart"></span>[${sessionScope.Cart}]</a></li>
 
 	        </ul>
 	      </div>
