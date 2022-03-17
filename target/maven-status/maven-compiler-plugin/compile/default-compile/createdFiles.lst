@@ -10,7 +10,6 @@ com\speedstyle\prj301\controller\ProductManagerControl.class
 com\speedstyle\prj301\dao\CartDAO.class
 com\speedstyle\prj301\dto\ProductSize.class
 com\speedstyle\prj301\controller\LoginControl.class
-com\speedstyle\prj301\dao\AdminDAO.class
 com\speedstyle\prj301\dto\Product.class
 com\speedstyle\prj301\controller\ProductControl.class
 com\speedstyle\prj301\dao\UserDAO.class

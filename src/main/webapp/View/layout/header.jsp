@@ -94,7 +94,7 @@
                         <a class="dropdown-item" href="admin/user">USER MANAGEMENT</a>
                         <a class="dropdown-item" href="admin/order">ORDER MANAGEMENT</a>  
                         <a class="dropdown-item" href="productmanager">PRODUCT MANAGEMENT</a>  
-                        <a class="dropdown-item" href="admin/new">ADD NEW PRODUCT</a>                         
+                        <a class="dropdown-item" href="addproduct">ADD NEW PRODUCT</a>                         
                       </div>
                   </li>
                 </c:if>

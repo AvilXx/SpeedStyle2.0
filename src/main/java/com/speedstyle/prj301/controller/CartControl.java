@@ -66,7 +66,7 @@ public class CartControl extends HttpServlet {
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(60 * 60 * 24);
         response.addCookie(c);
-        response.sendRedirect("detail_cart");
+        response.sendRedirect("/detail_cart");
 }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
