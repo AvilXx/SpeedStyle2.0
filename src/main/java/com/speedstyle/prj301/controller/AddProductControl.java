@@ -5,9 +5,12 @@
 package com.speedstyle.prj301.controller;
 
 import com.speedstyle.prj301.dao.ProductDAO;
+import com.speedstyle.prj301.dto.Product;
+import com.speedstyle.prj301.dto.ProductSize;
 import com.speedstyle.prj301.dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,20 +37,51 @@ public class AddProductControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession ss = request.getSession();
-        User us =  (User) ss.getAttribute("LOGIN_USER");
-        if (us.getRoleID().equals("0")){
-             response.sendRedirect("logout");
-             return;
-        }
+        response.setContentType("text/html;charset=windows-1252");
+        HashMap<String,String> errors = new HashMap<String,String>();
+        boolean hasError = false;
         ProductDAO dao = new ProductDAO();
-        String name = request.getParameter("Name");
-        if(name!=null){
+        int id = dao.CountProduct();
+        String Name = request.getParameter("Name");
+
+        if (Name.trim().equals("")){
+            errors.put("Name", "Name is empty");
+            hasError = true;
+            response.sendRedirect(request.getContextPath()+"/View/Admin/AddNewProduct.jsp");
+        }
+
+        ProductSize pS = new ProductSize(id,0,0,0,0,0,0);
+        pS.setSize39(Integer.valueOf(request.getParameter("size39")));
+        pS.setSize40(Integer.valueOf(request.getParameter("size40")));
+        pS.setSize41(Integer.valueOf(request.getParameter("size41")));
+        pS.setSize42(Integer.valueOf(request.getParameter("size42")));
+        pS.setSize43(Integer.valueOf(request.getParameter("size43")));
+        pS.setSize44(Integer.valueOf(request.getParameter("size44")));
+
         
-      }
-        RequestDispatcher rd = request.getRequestDispatcher("/View/Admin/addNewProduct.jsp");
-        rd.forward(request, response);      
+        
+
+        Product p = new Product(id,"","",0,"","");                   
+        p.setName(request.getParameter("Name"));
+        p.setPrice(Double.parseDouble(request.getParameter("Price")));
+        p.setCategory(request.getParameter("Category"));
+        p.setImage_link(request.getParameter("image_link"));
+        p.setMain_description(request.getParameter("Description"));
+
+        if (hasError){
+            request.setAttribute("product", p);
+            request.setAttribute("sizeList", pS);
+            request.setAttribute("errors", errors);
+
+            RequestDispatcher rd = request.getRequestDispatcher("/View/Admin/AddNewProduct.jsp");
+            rd.forward(request, response);
+        }else{
+            log("Add Product " + p.getId());
+
+            dao.addProduct(p);
+            dao.addSizeProduct(pS);
+            response.sendRedirect(request.getContextPath()+"/productmanager");
+        }     
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

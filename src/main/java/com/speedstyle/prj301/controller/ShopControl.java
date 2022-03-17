@@ -53,6 +53,12 @@ public class ShopControl extends HttpServlet {
         request.setAttribute("listP", list);
         request.setAttribute("search", search);
 
+        int count = dao.CountProduct();
+        int endPage = count / 6;
+        if (count % 6 != 0) {
+            endPage++;
+        }
+        request.setAttribute("endP", endPage);
         RequestDispatcher rd = request.getRequestDispatcher("/View/shop.jsp");
         rd.forward(request, response);
     }

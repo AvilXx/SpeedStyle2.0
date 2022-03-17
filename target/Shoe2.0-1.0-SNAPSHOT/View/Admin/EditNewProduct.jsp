@@ -4,13 +4,13 @@
     Author     : Nhut Minh
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
 <html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Add new Product</title>
+        <title>Edit Product</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -296,61 +296,67 @@
         <c:set var="Size" value="${requestScope.sizeList}"/>
         <section>
             <div>
-            <img class="img-fluid" src="${p.image_link}" alt="Colorlib Template">
+                <img style="width: 30%; margin-left: 35%; margin-top: 3%;" class="img-fluid" src="${p.image_link}" alt="Colorlib Template">
             </div>
-            
+
             <div class="page">
                 <form action="./update" method="POST">
-                <label class="field field_v1">
-                    <p><input type="hidden" class="field__input" placeholder="" name="id" autocomplete="off" value="${p.id}"></p>
-                </label>
-                <label class="field field_v1">
-                    <input type="text" class="field__input" placeholder="" name="Name" autocomplete="off" value="${p.name}">
-                    <span class="field__label-wrap">
-                        <span class="field__label">Input Name Product</span>
-                    </span>
-                </label>               
+                    <label class="field field_v1">
+                        <p><input type="hidden" class="field__input" placeholder="" name="id" autocomplete="off" value="${p.id}" required pattern="\S+"/></p>
+                    </label>
+                    <label class="field field_v1">
+                        <input type="text" class="field__input" placeholder="" name="Name" autocomplete="off" value="${p.name} " required pattern="\S+"/>
+                        <span class="field__label-wrap">
+                            <span class="field__label">Input Name Product</span>
+                        </span>
+                    </label>               
 
-                <label class="field field_v1">
-                    <input class="field__input" placeholder="" name="Price" autocomplete="off" value="${p.price}">
-                    <span class="field__label-wrap">
-                        <span class="field__label">Input Price</span>
-                    </span>
-                </label>
-                <label class="field field_v1">
-                    <input class="field__input" placeholder="" name="Category" autocomplete="off" value="${p.category}">
-                    <span class="field__label-wrap">
-                        <span class="field__label">Input Category</span>
-                    </span>
-                </label>  
-                <label class="field field_v1">
-                    <input class="field__input" placeholder="" name="image_link" autocomplete="off" value="${p.image_link}">
-                    <span class="field__label-wrap">
-                        <span class="field__label">Input image_link Product</span>
-                    </span>
-                </label>  
-                <label class="field field_v3">
-                    <input class="field__input" placeholder="" name="Description" autocomplete="off" value="${p.main_description}">
-                    <span class="field__label-wrap">
-                        <span class="field__label">Input Description</span>
-                    </span>
-                </label>
-                <label action="#">
-                    Size39: <input type="text" name="size" placeholder="39" autocomplete="off" value="${Size.size39}"><br>
-                    Size40: <input type="text" name="size" placeholder="40" autocomplete="off" value="${Size.size40}"><br>
-                    Size41: <input type="text" name="size" placeholder="41" autocomplete="off" value="${Size.size41}"><br> 
-                    Size42: <input type="text" name="size" placeholder="42" autocomplete="off" value="${Size.size42}"><br>
-                    Size43: <input type="text" name="size" placeholder="43" autocomplete="off" value="${Size.size43}"><br>
-                    Size44: <input type="text" name="size" placeholder="44" autocomplete="off" value="${Size.size44}"><br>
-                </label>
+                    <label class="field field_v1">
+                        <input class="field__input" placeholder="" name="Price" autocomplete="off" value="${p.price}" required pattern="\S+"/>
+                        <span class="field__label-wrap">
+                            <span class="field__label">Input Price</span>
+                        </span>
+                    </label>
+                    <!-- comment -->
+                    CATEGORY: 
+                    <label class="field field_v1" style="margin-top: 30px; margin-left: 10%;">                      
+                      
+                        <input style="margin: 5%;" checked="checked" name="gioitinh" type="radio" value="VN" />Nike
+                        <input  style="margin: 5%;" name="gioitinh" type="radio" value="TQ" />Adidas
+                        <input  style="margin: 5%;" name="gioitinh" type="radio" value="NB" />Biti's
 
-                <label>
-                    <input class="linktr__goal r-link" style="margin-left: 40%;" type="Submit" value="Submit">
-                </label>
+                    </label>  
+                    <br>
+                    <br>
+                    <!-- comment -->
+                    <label class="field field_v1">
+                        <input class="field__input" placeholder="" name="image_link" autocomplete="off" value="${p.image_link}" required pattern="\S+"/> 
+                        <span class="field__label-wrap">
+                            <span class="field__label">Input image_link Product</span>
+                        </span>
+                    </label>  
+                    <label class="field field_v3">
+                        <input style="width: 440px;" class="field__input" placeholder="" name="Description" autocomplete="off" value="${p.main_description}" required pattern="\S+"/>
+                        <span class="field__label-wrap">
+                            <span class="field__label">Input Description</span>
+                        </span>
+                    </label>
+                    <label>
+                        Size39: <input class="c" type="text" name="size39" placeholder="39" autocomplete="off" value="${Size.size39}" required pattern="\S+"/><br>
+                        Size40: <input class="c" type="text" name="size40" placeholder="40" autocomplete="off" value="${Size.size40}" required pattern="\S+"/><br>
+                        Size41: <input class="c" type="text" name="size41" placeholder="41" autocomplete="off" value="${Size.size41}" required pattern="\S+"/><br> 
+                        Size42: <input class="c" type="text" name="size42" placeholder="42" autocomplete="off" value="${Size.size42}" required pattern="\S+"/><br>
+                        Size43: <input class="c" type="text" name="size43" placeholder="43" autocomplete="off" value="${Size.size43}" required pattern="\S+"/><br>
+                        Size44: <input class="c" type="text" name="size44" placeholder="44" autocomplete="off" value="${Size.size44}" required pattern="\S+"/><br>
+                    </label>
+
+                    <label>
+                        <input class="linktr__goal r-link" style="margin-left: 40%;" onclick="checkBlank()" type="Submit" value="Submit">
+                    </label>
                 </form>
             </div>
             <div class="linktr">
-                <a href="home" target="_blank" class="linktr__goal r-link">Back to Home Page 💪💪💪</a>
+                <a href="home" target="_blank" class="linktr__goal r-link">Back to Home Page ???</a>
             </div>
         </section>
         <%@include file="/View/layout/footer.jsp" %>
