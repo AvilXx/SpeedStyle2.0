@@ -35,29 +35,28 @@ public class UpdateProductControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=windows-1252");
         HashMap<String,String> errors = new HashMap<String,String>();
         boolean hasError = false;
         ProductDAO dao = new ProductDAO();
         String id = request.getParameter("id");
         String Name = request.getParameter("Name");
-        String Price = request.getParameter("Price");
-        String Category = request.getParameter("Category");
-        String image_link = request.getParameter("image_link");
-        String Description = request.getParameter("Description");
 
-        int Size39 = Integer.parseInt(request.getParameter("39"));
-        int Size40 = Integer.parseInt(request.getParameter("40"));
-        int Size41 = Integer.parseInt(request.getParameter("41"));
-        int Size42 = Integer.parseInt(request.getParameter("42"));
-        int Size43 = Integer.parseInt(request.getParameter("43"));
-        int Size44 = Integer.parseInt(request.getParameter("44"));
+        ProductSize pS = new ProductSize();
+        pS.setId(Integer.valueOf(request.getParameter("id")));
+        pS.setSize39(Integer.valueOf(request.getParameter("size39")));
+        pS.setSize40(Integer.valueOf(request.getParameter("size40")));
+        pS.setSize41(Integer.valueOf(request.getParameter("size41")));
+        pS.setSize42(Integer.valueOf(request.getParameter("size42")));
+        pS.setSize43(Integer.valueOf(request.getParameter("size43")));
+        pS.setSize44(Integer.valueOf(request.getParameter("size44")));
 
         if (Name.trim().equals("")){
             errors.put("Name", "Name is empty");
             hasError = true;
         }
-        ProductSize pS = new ProductSize(Integer.parseInt(id),Size39,Size40,Size41,Size42,Size43,Size44);
+        
+
         Product p = dao.getProductByID(id);                   
         p.setName(request.getParameter("Name"));
         p.setPrice(Double.parseDouble(request.getParameter("Price")));
@@ -67,14 +66,15 @@ public class UpdateProductControl extends HttpServlet {
 
         if (hasError){
             request.setAttribute("product", p);
+            request.setAttribute("sizeList", pS);
             request.setAttribute("errors", errors);
 
             RequestDispatcher rd = request.getRequestDispatcher("/View/Admin/EditNewProduct.jsp");
             rd.forward(request, response);
         }else{
-            log("Update student " + p.getId());
-            dao.addProduct(p);
-            dao.addSizeProduct(pS);
+            log("Update Product " + p.getId());
+            dao.UpdateProduct(p);
+            dao.UpdateSizeProduct(pS);
             response.sendRedirect(request.getContextPath()+"/productmanager");
         }
     }

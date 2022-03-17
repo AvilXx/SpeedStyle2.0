@@ -94,7 +94,7 @@
 
                                         <td class="product-remove"><a href="product?pid=${o.id}"><span class="ion-ios-eye"></span></a></td>
                                         <td class="product-remove"><a href="editproduct?id=${o.id}"><span class="ion-ios-settings"></span></a></td>                                   
-                                        <td class="product-remove"><a href="delete?pid=${o.id}"><span class="ion-ios-close"></span></a></td>
+                                        <td class="product-remove"><a href="delete?pid=${o.id}" onclick="showMess(${o.id})"><span class="ion-ios-close"></span></a></td>
 
                                     </tr><!-- END TR-->
                                 </c:forEach>
@@ -111,7 +111,14 @@
     <!-- loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-
+    <script>
+        function showMess(id){
+            var option = confirm('Are you sure to delete');
+            if(option === true){
+                window.location.href='delete?pid='+id;
+            }
+        }
+    </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
     <script src="js/popper.min.js"></script>

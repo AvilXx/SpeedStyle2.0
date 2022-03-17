@@ -13,8 +13,16 @@ import java.sql.Date;
 public class Order {
     private int TransactionID,UserID,Phone;
     private Double Total;
-    private String Address , Mess;
+    private String Address , Mess, status;
     private Date created;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getTransactionID() {
         return TransactionID;
@@ -72,9 +80,10 @@ public class Order {
         this.created = created;
     }
 
-    public Order(int TransactionID, int UserID, int Phone, String Address, Double Total, String Mess, Date created) {
+    public Order(int TransactionID, String status, int UserID, int Phone, String Address, Double Total, String Mess, Date created) {
         this.TransactionID = TransactionID;
         this.UserID = UserID;
+        this.status = status;
         this.Phone = Phone;
         this.Total = Total;
         this.Address = Address;

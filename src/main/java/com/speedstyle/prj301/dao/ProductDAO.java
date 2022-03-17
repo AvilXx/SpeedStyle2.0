@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -32,7 +33,7 @@ public class ProductDAO {
 
     private final static String PRODUCT_DETAIL = "Select * from dbo.Product Where product_id = ?";
     private final static String SIZE = "Select * from dbo.Size";
-    private final static String PRODUCT_ALLSIZE = "Select * from dbo.ProductSize where product_id = ?";
+    
     private final static String CATEGORY = "Select * from dbo.Category";
     private final static String PRODUCT_QUANTITY = "Select * from dbo.ProductSize Where product_id = ?";
     private final static String SIMILAR_PRODUCT = "Select * from dbo.Product where category = (select category from dbo.Product where product_id = ? )"
@@ -44,6 +45,23 @@ public class ProductDAO {
 
 
     private final static String ADDPRODUCT = "INSERT INTO dbo.Product VALUES (?, ?, ?, ?, ?, ?) ";
+    private final static String UPDATEPRODUCT = "UPDATE dbo.Product SET name = ?, category = ?, price = ?, image_link = ?, main_description = ? where product_id = ?";
+    private final static String UPDATE_PRODUCT_SIZE = "UPDATE dbo.ProductSize SET size39 = ?, size40 = ?, size41 = ?, size42 = ?, size43 = ?, size44 = ? where product_id = ?";
+    private final static String COUNT_PRODUCT = "SELECT COUNT(product_id) FROM dbo.Product";
+
+
+    public int CountProduct(){       
+        try{
+            String query = COUNT_PRODUCT;
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                return rs.getInt(1);
+            }
+        }catch(Exception e){}
+        return 0;
+    }
 
     public List<Product> getNewArrival(){
         List<Product> list = new ArrayList<>();       
@@ -133,7 +151,7 @@ public class ProductDAO {
     }
     public ProductSize getProductAllSize( String id){
         try{
-            String query = PRODUCT_ALLSIZE;
+            String query = SIZEBYID;
             conn = new DBUtils().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, id);
@@ -149,6 +167,43 @@ public class ProductDAO {
             }
         }catch(Exception e){}
     return null;
+    }
+   
+    public boolean UpdateProduct(Product p) {
+        String query = UPDATEPRODUCT;
+        try {
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            
+            ps.setString(1, p.getName());          
+            ps.setString(2, p.getCategory());
+            ps.setDouble(3, p.getPrice());
+            ps.setString(4, p.getImage_link());
+            ps.setString(5, p.getMain_description());
+            ps.setInt(6, p.getId());
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+        }
+        return false;
+    }
+    public boolean UpdateSizeProduct(ProductSize p) {
+        String query = UPDATE_PRODUCT_SIZE;
+        try {
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            
+            ps.setInt(1, p.getSize39());
+            ps.setInt(2, p.getSize40());
+            ps.setInt(3, p.getSize41());
+            ps.setInt(4, p.getSize42());
+            ps.setInt(5, p.getSize43());
+            ps.setInt(6, p.getSize44());
+            ps.setInt(7, p.getId());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+        }
+        return false;
     }
     public boolean addProduct(Product p) {
         String query = ADDPRODUCT;
@@ -236,13 +291,24 @@ public class ProductDAO {
         }catch(Exception e){}
     }
 
+    public int RandomID() {
+        ProductDAO dao = new ProductDAO();
+        int ranNum = ThreadLocalRandom.current().nextInt(1,999999);
+        Product us = dao.getProductByID(Integer.toString(ranNum));
+        if (us==null){
+            return ranNum;
+        }
+        return RandomID();
+    }
 
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
-        ProductSize list = dao.getProductAllSize("1");
-//        for(Product o :list){
-            System.out.println(list);
-//        }
+        int n = dao.CountProduct();
+        System.out.println(n);
+//        ProductSize list = dao.getProductAllSize("1");
+////        for(Product o :list){
+//            System.out.println(list);
+////        }
         
     }
 

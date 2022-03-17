@@ -92,14 +92,11 @@
 
                       <div class="dropdown-menu" aria-labelledby="dropdown04">                  
                         <a class="dropdown-item" href="admin/user">USER MANAGEMENT</a>
-                        <a class="dropdown-item" href="admin/order">ORDER MANAGEMENT</a>  
+                        <a class="dropdown-item" href="ordermanager">ORDER MANAGEMENT</a>  
                         <a class="dropdown-item" href="productmanager">PRODUCT MANAGEMENT</a>  
                         <a class="dropdown-item" href="addproduct">ADD NEW PRODUCT</a>                         
                       </div>
                   </li>
-                </c:if>
-                <c:if test="${role == 0}">  
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
                 </c:if>
                   <li class="nav-item cta cta-colored"><a href="detail_cart" class="nav-link"><span class="icon-shopping_cart"></span>[${sessionScope.Cart}]</a></li>
 
