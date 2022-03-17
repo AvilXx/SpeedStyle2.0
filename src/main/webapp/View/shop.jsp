@@ -97,7 +97,7 @@
 		          <div class="col text-center">
 		            <div class="block-27">
                                 <c:forEach begin="1" end="${endP}" var="i">
-                                    <a style="padding: 20px; color: black;" href="#">${i}</a>
+                                    <a style="padding: 20px; color: black;" href="shop?pageProduct=${i}">${i}</a>
                                 </c:forEach>
 		            </div>
 		          </div>

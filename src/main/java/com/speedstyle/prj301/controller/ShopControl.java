@@ -36,21 +36,26 @@ public class ShopControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String sortCategory ="";
-            if(request.getParameter("sortCategory") != null){
-                sortCategory = request.getParameter("sortCategory");
-                if(sortCategory.equals("Biti's")) sortCategory = "Biti''s";
+        String sortCategory = "";
+        if (request.getParameter("sortCategory") != null) {
+            sortCategory = request.getParameter("sortCategory");
+            if (sortCategory.equals("Biti's")) {
+                sortCategory = "Biti''s";
             }
-        String search ="";
-            if(request.getParameter("search") != null){
-                search = request.getParameter("search");                 
-            }
+        }
+        String search = "";
+        if (request.getParameter("search") != null) {
+            search = request.getParameter("search");
+        }
+        String pageP = request.getParameter("pageProduct");
+        if (pageP == null) {
+            pageP = "1";
+        }
+        int pagePr = Integer.parseInt(pageP);
 
         ProductDAO dao = new ProductDAO();
         List<Product> categoryL = dao.getCategory();
         request.setAttribute("ListC", categoryL);
-        List<Product> list = dao.getAllProduct(sortCategory,search);
-        request.setAttribute("listP", list);
         request.setAttribute("search", search);
 
         int count = dao.CountProduct();
@@ -58,6 +63,10 @@ public class ShopControl extends HttpServlet {
         if (count % 6 != 0) {
             endPage++;
         }
+
+        List<Product> listPage = dao.pagingProduct(pagePr,sortCategory, search);
+        request.setAttribute("listP", listPage);
+
         request.setAttribute("endP", endPage);
         RequestDispatcher rd = request.getRequestDispatcher("/View/shop.jsp");
         rd.forward(request, response);

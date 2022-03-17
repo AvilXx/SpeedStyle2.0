@@ -48,6 +48,58 @@ public class ProductDAO {
     private final static String UPDATEPRODUCT = "UPDATE dbo.Product SET name = ?, category = ?, price = ?, image_link = ?, main_description = ? where product_id = ?";
     private final static String UPDATE_PRODUCT_SIZE = "UPDATE dbo.ProductSize SET size39 = ?, size40 = ?, size41 = ?, size42 = ?, size43 = ?, size44 = ? where product_id = ?";
     private final static String COUNT_PRODUCT = "SELECT COUNT(product_id) FROM dbo.Product";
+    private final static String PAGING_PRODUCT = " order by product_id offset ? rows fetch next 6 rows only";
+
+    public List<Product> pagingProduct(int index,String sortCategory,String search) {
+        List<Product> list = new ArrayList();
+        try {
+            String query = ALLPRODUCT;
+            if(!sortCategory.equals("")){
+                query+= " Where category LIKE '"+sortCategory+"' ";
+            }
+            if(!search.equals("")){
+                query+= " Where name LIKE '%"+search+"%' ";
+            }
+            query+=PAGING_PRODUCT;
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, (index - 1) * 6);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Product(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDouble(4),
+                        rs.getString(5)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    public List<Product> getAllProduct(String sortCategory, String search){
+        List<Product> list = new ArrayList<>();        
+        try{
+            String query = ALLPRODUCT;
+            if(!sortCategory.equals("")){
+                query+= " Where category LIKE '"+sortCategory+"'";
+            }
+            if(!search.equals("")){
+                query+= " Where name LIKE '%"+search+"%'";
+            }
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                list.add(new Product(rs.getInt(1),
+                                    rs.getString(2),
+                                    rs.getString(3),
+                                    rs.getDouble(4),
+                                    rs.getString(5)));
+            }
+        }catch(Exception e){}
+        return list;
+    }
 
 
     public int CountProduct(){       
@@ -93,29 +145,7 @@ public class ProductDAO {
         }catch(Exception e){}
         return list;
     }
-    public List<Product> getAllProduct(String sortCategory,String search){
-        List<Product> list = new ArrayList<>();        
-        try{
-            String query = ALLPRODUCT;
-            if(!sortCategory.equals("")){
-                query+= " Where category LIKE '"+sortCategory+"'";
-            }
-            if(!search.equals("")){
-                query+= " Where name LIKE '%"+search+"%'";
-            }
-            conn = new DBUtils().getConnection();
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
-            while(rs.next()){
-                list.add(new Product(rs.getInt(1),
-                                    rs.getString(2),
-                                    rs.getString(3),
-                                    rs.getDouble(4),
-                                    rs.getString(5)));
-            }
-        }catch(Exception e){}
-        return list;
-    }
+    
 
     public Product getProductByID(String id){       
         try{

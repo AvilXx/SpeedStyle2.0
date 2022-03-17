@@ -34,6 +34,7 @@
         <link rel="stylesheet" href="css/flaticon.css">
         <link rel="stylesheet" href="css/icomoon.css">
         <link rel="stylesheet" href="css/style.css">
+        <jsp:useBean id="x" class="com.speedstyle.prj301.dao.ProductDAO" scope="request"></jsp:useBean>
     </head>
     
     <body class="goto-here">
@@ -294,7 +295,7 @@
         </div>
         <c:set var="p" value="${requestScope.product}"/>
         <c:set var="Size" value="${requestScope.sizeList}"/>
-        <section>
+       <section>
             <div>
                 <img style="width: 30%; margin-left: 35%; margin-top: 3%;" class="img-fluid" src="${p.image_link}" alt="Colorlib Template">
             </div>
@@ -302,10 +303,10 @@
             <div class="page">
                 <form action="./update" method="POST">
                     <label class="field field_v1">
-                        <p><input type="hidden" class="field__input" placeholder="" name="id" autocomplete="off" value="${p.id}" required pattern="\S+"/></p>
+                        <p><input type="hidden" class="field__input" placeholder="" name="id" autocomplete="off" value="${p.id}"/></p>
                     </label>
                     <label class="field field_v1">
-                        <input type="text" class="field__input" placeholder="" name="Name" autocomplete="off" value="${p.name} " required pattern="\S+"/>
+                        <input type="text" class="field__input" placeholder="" name="Name" autocomplete="off" value="${p.name} " required />
                         <span class="field__label-wrap">
                             <span class="field__label">Input Name Product</span>
                         </span>
@@ -319,13 +320,18 @@
                     </label>
                     <!-- comment -->
                     CATEGORY: 
-                    <label class="field field_v1" style="margin-top: 30px; margin-left: 10%;">                      
-                      
-                        <input style="margin: 5%;" checked="checked" name="gioitinh" type="radio" value="VN" />Nike
-                        <input  style="margin: 5%;" name="gioitinh" type="radio" value="TQ" />Adidas
-                        <input  style="margin: 5%;" name="gioitinh" type="radio" value="NB" />Biti's
-
-                    </label>  
+                    <label class="field field_v1" style="margin-top: 30px; margin-left: 15%;">                      
+                        <c:forEach items="${x.category}" var="o">
+                            <c:choose>
+                                <c:when test="${p.category == o.category}">
+                                    <input  style="margin: 5%;" checked="checked" name="Category" type="radio" value="${o.category}" />${o.category}
+                                </c:when>
+                                <c:otherwise>
+                                    <input  style="margin: 5%;" name="Category" type="radio" value="${o.category}" />${o.category}
+                                </c:otherwise>    
+                            </c:choose>
+                        </c:forEach>
+                   </label>  
                     <br>
                     <br>
                     <!-- comment -->
@@ -336,7 +342,7 @@
                         </span>
                     </label>  
                     <label class="field field_v3">
-                        <input style="width: 440px;" class="field__input" placeholder="" name="Description" autocomplete="off" value="${p.main_description}" required pattern="\S+"/>
+                        <input style="width: 440px;" class="field__input" placeholder="" name="Description" autocomplete="off" value="${p.main_description}" required/>
                         <span class="field__label-wrap">
                             <span class="field__label">Input Description</span>
                         </span>
