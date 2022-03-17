@@ -4,6 +4,7 @@
  */
 package com.speedstyle.prj301.dto;
 
+import com.speedstyle.prj301.dao.ProductDAO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @author avillX
  */
 public class Cart {
-    private List<ProductCart> products;
+    public List<ProductCart> products;
     public Cart(){
         products = new ArrayList<>();
     }
@@ -25,10 +26,10 @@ public class Cart {
         this.products = products;
     }
     public int getQuantityById(int id){
-        return getProductById(id).getQuantity();
+        return getProductCartById(id).getQuantity();
     }
 
-    public ProductCart getProductById(int id){
+    public ProductCart getProductCartById(int id){
         for(ProductCart i: products){
             if (i.getProduct().getId()==id){
                 return i; 
@@ -37,17 +38,17 @@ public class Cart {
         return null;
     }
 
-    public void addProductCart(ProductCart p){
-        if(getProductById(p.getProduct().getId())!=null){
-            ProductCart m = getProductById(p.getProduct().getId());
-            m.setQuantity((m.getQuantity()+m.getQuantity()));
+    public void addProductCart(ProductCart p, int quantity){
+        if(getProductCartById(p.getProduct().getId())!=null){
+            ProductCart m = getProductCartById(p.getProduct().getId());
+            m.setQuantity(m.getQuantity()+ quantity);
         }else
             products.add(p);  
     }
 
     public void removeProductCart(int id){
-        if(getProductById(id)!=null){
-            products.remove(getProductById(id));
+        if(getProductCartById(id)!=null){
+            products.remove(getProductCartById(id));
         }
     }
 
@@ -64,22 +65,34 @@ public class Cart {
         }
         return null;
     }
-    public Cart (String txt,List<Product> list){      
+    public Cart (String txt,List<Product> list){ 
+        products = new ArrayList<>();     
         try{
             if(txt!=null && txt.length()!=0){
                 String[] s = txt.split(".");
                 for(String i:s){
+                    System.out.println(i);
                     String[] n = i.split(":");
                         int id = Integer.parseInt(n[0]);
                         int size = Integer.parseInt(n[1]);
                         int quantity = Integer.parseInt(n[2]);
                     Product p = getProductByID(id,list);
                     ProductCart t = new ProductCart (p,size,quantity,p.getPrice());
-                    addProductCart(t);
+                    addProductCart(t,quantity);
                 }
             }
-        }catch(NumberFormatException e){
+        }catch(Exception e){
         }   
     } 
-
+    public static void main(String[] args) {
+        
+        ProductDAO dao = new ProductDAO();
+        List<Product> list = dao.getAllProduct("","");
+        String txt ="1:40:1.2:40:4";
+        Cart cart = new Cart(txt,list);
+        List<ProductCart> pCart = cart.getProductCart();
+            for(ProductCart o :pCart){
+                System.out.println(o);
+            }
+    }
 }

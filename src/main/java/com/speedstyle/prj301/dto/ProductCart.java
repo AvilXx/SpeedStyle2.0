@@ -14,14 +14,17 @@ public class ProductCart {
     private double price;
     
     public ProductCart(){}
-
+     
     public ProductCart(Product product, int size, int quantity, double price) {
         this.product = product;
         this.quantity = quantity;
         this.size = size;
         this.price = price;
     }
-
+    @Override
+    public String toString(){
+        return product.getId()+", "+size+", "+quantity+", "+price;
+    }
     public int getSize() {
         return size;
     }

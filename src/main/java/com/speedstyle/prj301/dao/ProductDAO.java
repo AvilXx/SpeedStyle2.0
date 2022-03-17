@@ -32,6 +32,7 @@ public class ProductDAO {
 
     private final static String PRODUCT_DETAIL = "Select * from dbo.Product Where product_id = ?";
     private final static String SIZE = "Select * from dbo.Size";
+    private final static String PRODUCT_ALLSIZE = "Select * from dbo.ProductSize where product_id = ?";
     private final static String CATEGORY = "Select * from dbo.Category";
     private final static String PRODUCT_QUANTITY = "Select * from dbo.ProductSize Where product_id = ?";
     private final static String SIMILAR_PRODUCT = "Select * from dbo.Product where category = (select category from dbo.Product where product_id = ? )"
@@ -40,6 +41,9 @@ public class ProductDAO {
     private final static String SIZEBYID= " select * from dbo.ProductSize where product_id = ?";
 
     private final static String DELETE =" Delete from dbo.Product where product_id = ?";
+
+
+    private final static String ADDPRODUCT = "INSERT INTO dbo.Product VALUES (?, ?, ?, ?, ?, ?) ";
 
     public List<Product> getNewArrival(){
         List<Product> list = new ArrayList<>();       
@@ -127,7 +131,59 @@ public class ProductDAO {
         }catch(Exception e){}
     return list;
     }
+    public ProductSize getProductAllSize( String id){
+        try{
+            String query = PRODUCT_ALLSIZE;
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                return new ProductSize(Integer.parseInt(id),  
+                                        rs.getInt(2),
+                                        rs.getInt(3),
+                                        rs.getInt(4),
+                                        rs.getInt(5),
+                                        rs.getInt(6),
+                                        rs.getInt(7));
+            }
+        }catch(Exception e){}
+    return null;
+    }
+    public boolean addProduct(Product p) {
+        String query = ADDPRODUCT;
+        try {
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, p.getId());
+            ps.setString(2, p.getName());          
+            ps.setString(3, p.getCategory());
+            ps.setDouble(4, p.getPrice());
+            ps.setString(5, p.getImage_link());
+            ps.setString(6, p.getMain_description());
+            return ps.executeUpdate() > 0;
 
+        } catch (Exception e) {
+        }
+        return false;
+    }
+    public boolean addSizeProduct(ProductSize p) {
+        String query = ADDPRODUCT;
+        try {
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, p.getId());
+            ps.setInt(2, p.getSize39());
+            ps.setInt(3, p.getSize40());
+            ps.setInt(4, p.getSize41());
+            ps.setInt(5, p.getSize42());
+            ps.setInt(6, p.getSize43());
+            ps.setInt(7, p.getSize44());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+        }
+        return false;
+    }
    
 
     public List<Product> getSimilarProduct(String id){
@@ -183,12 +239,11 @@ public class ProductDAO {
 
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
-        List<Product> list = dao.getAllProduct("Adidas","");
-        for(Product o :list){
-            System.out.println(o);
-        }
-        DecimalFormat formatter = new DecimalFormat("###,###,###");
-        System.out.println(formatter.format(1000000.0000));
+        ProductSize list = dao.getProductAllSize("1");
+//        for(Product o :list){
+            System.out.println(list);
+//        }
+        
     }
 
    

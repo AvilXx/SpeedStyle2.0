@@ -4,10 +4,38 @@
  */
 package com.speedstyle.prj301.dao;
 
+import com.speedstyle.prj301.dao.ProductDAO;
+import com.speedstyle.prj301.dto.Cart;
+import com.speedstyle.prj301.dto.Product;
+import com.speedstyle.prj301.dto.ProductCart;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author avillX
  */
 public class CartDAO {
-    
+
+//    public List<ProductCart> Cart (String txt,List<Product> plist){
+//        Cart cart = new Cart(); 
+//        ProductDAO dao = new ProductDAO();
+//        List<ProductCart> list = new ArrayList<>();     
+//        try{
+//            if(txt!=null && txt.length()!=0){
+//                String[] s = txt.split(".");
+//                for(String i:s){
+//                    String[] n = i.split(":");
+//                        int id = Integer.parseInt(n[0]);
+//                        int size = Integer.parseInt(n[1]);
+//                        int quantity = Integer.parseInt(n[2]);
+//                    Product p = dao.getProductByID(String.valueOf(id));
+//                    ProductCart t = new ProductCart (p,size,quantity,p.getPrice());
+//                    cart.addProductCart(t,quantity);
+//                }
+//            }
+//        }catch(Exception e){
+//        }
+//    return list;   
+//    }    
 }

@@ -91,7 +91,7 @@ public class UserDAO {
         try {
             conn = new DBUtils().getConnection();
             ps = conn.prepareStatement(query);
-            ps.setString(1, "2342323");
+            ps.setInt(1, RandomID());
             ps.setString(2, user);
             ps.setString(3, pass);
             return ps.executeUpdate() > 0;
