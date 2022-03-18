@@ -4,13 +4,13 @@
     Author     : Nhut Minh
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page contentType="text/html" pageEncoding="windows-1252"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Add new Product</title>
+        <title>Âdd New Product</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -34,6 +34,7 @@
         <link rel="stylesheet" href="css/flaticon.css">
         <link rel="stylesheet" href="css/icomoon.css">
         <link rel="stylesheet" href="css/style.css">
+        <jsp:useBean id="g" class="com.speedstyle.prj301.dao.ProductDAO" scope="request"></jsp:useBean>
     </head>
     
     <body class="goto-here">
@@ -292,74 +293,70 @@
                 </div>
             </div>
         </div>
+        
+       <section>
+            <div>
+                <img style="width: 30%; margin-left: 35%; margin-top: 3%;" class="img-fluid" src="${p.image_link}" alt="Colorlib Template">
+            </div>
 
-        <section>
-
-            
             <div class="page">
                 <form action="./addproduct" method="POST">
-                <label class="field field_v1">
-                    <p><input type="hidden" class="field__input" placeholder="" name="id" autocomplete="off" ></p>
-                </label>
-                <label class="field field_v1">
-                    <input type="text" class="field__input" placeholder="" name="Name" autocomplete="off" value="">
-                    <span class="field__label-wrap">
-                        <span class="field__label">Input Name Product</span>
-                    </span>
-                </label>               
+                    <label class="field field_v1">
+                        <p><input type="hidden" class="field__input" placeholder="" name="id" autocomplete="off" value="${p.id}"/></p>
+                    </label>
+                    <label class="field field_v1">
+                        <input type="text" class="field__input" placeholder="" name="Name" autocomplete="off" value="" required />
+                        <span class="field__label-wrap">
+                            <span class="field__label">Input Name Product</span>
+                        </span>
+                    </label>               
 
-                <label class="field field_v1">
-                    <input class="field__input" placeholder="" name="Price" autocomplete="off" value="">
-                    <span class="field__label-wrap">
-                        <span class="field__label">Input Price</span>
-                    </span>
-                </label>
-                <label class="field field_v1">
-                    <input class="field__input" placeholder="" name="Category" autocomplete="off" value="">
-                    <span class="field__label-wrap">
-                        <span class="field__label">Input Category</span>
-                    </span>
-                </label>  
-                <label class="field field_v1">
-                    <input class="field__input" placeholder="" name="image_link" autocomplete="off" value="">
-                    <span class="field__label-wrap">
-                        <span class="field__label">Input image_link Product</span>
-                    </span>
-                </label>  
-                <label class="field field_v3">
-                    <input style="width: 440px;" class="field__input" placeholder="" name="Description" autocomplete="off">
-                    <span class="field__label-wrap">
-                        <span class="field__label">Input Description</span>
-                    </span>
-                </label>
-                <label>
-                    <br><p>Product remains: </p>
-                    Size39: <input class="c" type="text" name="size39" placeholder="39" autocomplete="off" value="0"><br>
-                    Size40: <input class="c" type="text" name="size40" placeholder="40" autocomplete="off" value="0"><br>
-                    Size41: <input class="c" type="text" name="size41" placeholder="41" autocomplete="off" value="0"><br> 
-                    Size42: <input class="c" type="text" name="size42" placeholder="42" autocomplete="off" value="0"><br>
-                    Size43: <input class="c" type="text" name="size43" placeholder="43" autocomplete="off" value="0"><br>
-                    Size44: <input class="c" type="text" name="size44" placeholder="44" autocomplete="off" value="0"><br>
-                </label>
+                    <label class="field field_v1">
+                        <input class="field__input" placeholder="" name="Price" autocomplete="off" value="" required pattern="\S+"/>
+                        <span class="field__label-wrap">
+                            <span class="field__label">Input Price</span>
+                        </span>
+                    </label>
+                    <!-- comment -->
+                    CATEGORY: 
+                    <label class="field field_v1" style="margin-top: 30px; margin-left: 15%;">                      
+                        <c:forEach items="${g.category}" var="o">
+                            <input  style="margin: 5%;" name="Category" type="radio" value="${o.category}" />${o.category}
+                        </c:forEach>
+                   </label>  
+                    <br>
+                    <br>
+                    <!-- comment -->
+                    <label class="field field_v1">
+                        <input class="field__input" placeholder="" name="image_link" autocomplete="off" value="" required pattern="\S+"/> 
+                        <span class="field__label-wrap">
+                            <span class="field__label">Input image_link Product</span>
+                        </span>
+                    </label>  
+                    <label class="field field_v3">
+                        <input style="width: 440px;" class="field__input" placeholder="" name="Description" autocomplete="off" value="" required/>
+                        <span class="field__label-wrap">
+                            <span class="field__label">Input Description</span>
+                        </span>
+                    </label>
+                    <label>
+                        Size39: <input class="c" type="text" name="size39" placeholder="39" autocomplete="off" value="0" required pattern="\S+"/><br>
+                        Size40: <input class="c" type="text" name="size40" placeholder="40" autocomplete="off" value="0" required pattern="\S+"/><br>
+                        Size41: <input class="c" type="text" name="size41" placeholder="41" autocomplete="off" value="0" required pattern="\S+"/><br> 
+                        Size42: <input class="c" type="text" name="size42" placeholder="42" autocomplete="off" value="0" required pattern="\S+"/><br>
+                        Size43: <input class="c" type="text" name="size43" placeholder="43" autocomplete="off" value="0" required pattern="\S+"/><br>
+                        Size44: <input class="c" type="text" name="size44" placeholder="44" autocomplete="off" value="0" required pattern="\S+"/><br>
+                    </label>
 
-                <label>
-                    <input class="linktr__goal r-link" style="margin-left: 40%;" onclick="checkBlank()" type="Submit" value="Add">
-                </label>
+                    <label>
+                        <input class="linktr__goal r-link" style="margin-left: 40%;" onclick="checkBlank()" type="Submit" value="Submit">
+                    </label>
                 </form>
             </div>
             <div class="linktr">
-                <a href="home" target="_blank" class="linktr__goal r-link">Back to Home Page ???</a>
+                <a href="productmanager" target="_blank" class="linktr__goal r-link">Back to Product Manager Page ???</a>
             </div>
         </section>
         <%@include file="/View/layout/footer.jsp" %>
     </body>
-    <script>
-        function checkBlank() {
-            var check = document.getElementsByClassName("field__input");
-            var check1 = document.getElementsByClassName("c");
-            if (check === "" && check1 ==="") {
-                alert("Can't be blank");
-            }
-        }
-    </script>
 </html>

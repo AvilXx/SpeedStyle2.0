@@ -9,41 +9,41 @@ package com.speedstyle.prj301.dto;
  * @author avillX
  */
 public class OrderDetail {
-    private int OrderID,TransactionID,ProductID,qty;
-    private String Size;
+    private int orderID,transactionID,productID,qty;
+    private String size;
     private double price;
 
-    public OrderDetail(int OrderID, int TransactionID, int ProductID, String Size, int qty, double price) {
-        this.OrderID = OrderID;
-        this.TransactionID = TransactionID;
-        this.ProductID = ProductID;
+    public OrderDetail(int orderID, int transactionID, int productID, String size, int qty, double price) {
+        this.orderID = orderID;
+        this.transactionID = transactionID;
+        this.productID = productID;
         this.qty = qty;
-        this.Size = Size;
+        this.size = size;
         this.price = price;
     }
 
     public int getOrderID() {
-        return OrderID;
+        return orderID;
     }
 
-    public void setOrderID(int OrderID) {
-        this.OrderID = OrderID;
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
     public int getTransactionID() {
-        return TransactionID;
+        return transactionID;
     }
 
-    public void setTransactionID(int TransactionID) {
-        this.TransactionID = TransactionID;
+    public void setTransactionID(int transactionID) {
+        this.transactionID = transactionID;
     }
 
     public int getProductID() {
-        return ProductID;
+        return productID;
     }
 
-    public void setProductID(int ProductID) {
-        this.ProductID = ProductID;
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
     public int getQty() {
@@ -55,11 +55,11 @@ public class OrderDetail {
     }
 
     public String getSize() {
-        return Size;
+        return size;
     }
 
-    public void setSize(String Size) {
-        this.Size = Size;
+    public void setSize(String size) {
+        this.size = size;
     }
 
     public double getPrice() {

@@ -41,7 +41,9 @@ public class Cart {
     public void addProductCart(ProductCart p, int quantity){
         if(getProductCartById(p.getProduct().getId())!=null){
             ProductCart m = getProductCartById(p.getProduct().getId());
-            m.setQuantity(m.getQuantity()+ quantity);
+            if(m.getSize() == p.getSize()){
+                m.setQuantity(m.getQuantity()+ quantity);
+            }
         }else
             products.add(p);  
     }
@@ -69,9 +71,8 @@ public class Cart {
         products = new ArrayList<>();     
         try{
             if(txt!=null && txt.length()!=0){
-                String[] s = txt.split(".");
+                String[] s = txt.split(",");
                 for(String i:s){
-                    System.out.println(i);
                     String[] n = i.split(":");
                         int id = Integer.parseInt(n[0]);
                         int size = Integer.parseInt(n[1]);
@@ -88,7 +89,10 @@ public class Cart {
         
         ProductDAO dao = new ProductDAO();
         List<Product> list = dao.getAllProduct("","");
-        String txt ="1:40:1.2:40:4";
+        String txt ="1:40:1,2:40:4";
+//        String[] s = txt.split(",");
+//        for(String i:s){
+//                    System.out.println(i);}
         Cart cart = new Cart(txt,list);
         List<ProductCart> pCart = cart.getProductCart();
             for(ProductCart o :pCart){

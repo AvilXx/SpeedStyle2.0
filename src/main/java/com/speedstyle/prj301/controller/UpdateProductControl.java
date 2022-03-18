@@ -35,7 +35,7 @@ public class UpdateProductControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=windows-1252");
+        response.setContentType("text/html;charset=UTF-8");
         HashMap<String,String> errors = new HashMap<String,String>();
         boolean hasError = false;
         ProductDAO dao = new ProductDAO();

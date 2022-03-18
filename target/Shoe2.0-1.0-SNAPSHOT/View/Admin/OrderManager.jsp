@@ -5,7 +5,7 @@
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page contentType="text/html" pageEncoding="windows-1252"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
@@ -38,13 +38,13 @@
     <body class="goto-here">
       
     <%@include file="/View/layout/header.jsp" %>
-    <c:set var="url" value="${pageContext.request.contextPath}/productmanager"/>
+    <c:set var="url" value="${pageContext.request.contextPath}/infor"/>
     <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
           	<p class="breadcrumbs"><span class="mr-2"><a href="home">Home</a></span> <span>Manager</span></p>
-            <h1 class="mb-0 bread">Product</h1>
+            <h1 class="mb-0 bread">Order</h1>
           </div>
         </div>
       </div>
@@ -64,42 +64,69 @@
                 <div class="row">
         <div class="col-md-12 ftco-animate">
                 <div class="cart-list">
+                    <form name="f" method="POST">
                         <table class="table">
                             <thead class="thead-primary">
                               <tr class="text-center">
-                                <th>ID</th>
+                                <th>OrderID</th>
                                 
-                                <th>&nbsp;</th>
-                                <th>Product</th>
+                                <th>Order's Date</th>
+                                <th>UserID</th>
                                 
-                                <th>Category</th>
-                                <th>Price</th>
+                                <th>Phone</th>
+                                <th>Status</th>
                                 
-                                <th>&nbsp;</th>
-                                <th>Control</th>
-                                <th>&nbsp;</th>
+                                
+                                <th>Update</th>
+                                
                               </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${listP}" var="o">
+                                <c:forEach items="${listO}" var="o">
+                                    
                                     <tr class="text-center">
-                                        <td class="product-id">${o.id}</td>
-                                        <td class="image-prod"><div class="img" style="background-image:url(${o.image_link});"></div></td>
+                                        <td class="product-id">${o.transactionID}</td>
+                                        
 
                                         <td class="product-name">
-                                            <h3>${o.name}</h3>
+                                            <h3>${o.created}</h3>
                                         </td>
-                                        <td class="price"><a href="${url}?sortCategory=${o.category}">${o.category}</a></td> 
-                                        <td class="price">$${o.price}</td>  
+                                        <td class="price"><a href="${url}?uid=${o.userID}">${o.userID}</a></td> 
+                                        <td class="price">0${o.phone}</td>
+                                        
+                                        
+<!--                                            <select id="size" id="" class="form-control" value="o.status">
+                                                <option value="Processing" style="color: Blue">Processing</option>
+                                                <option value="Completed" style="color: Green">Completed</option>
+                                                <option value="Rejected" style="color: Orange">Rejected</option>
+                                                <option value="Cancelled" style="color: Red">Cancelled</option>
+                                            </select>-->
+                                        <c:choose>
+                                            <c:when test="${o.status == 'Processing'}">
+                                               <td class="status" style="color: Blue; font-weight: bold;">${o.status}</td>
+                                            </c:when>
+                                            <c:when test="${o.status == 'Completed'}">
+                                               <td class="status" style="color: Green; font-weight: bold;">${o.status}</td>
+                                            </c:when>
+                                            <c:when test="${o.status == 'Cancelled'}">
+                                               <td class="status" style="color: red; font-weight: bold;">${o.status}</td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <td class="status" style="color: Orange; font-weight: bold;">${o.status}</td>
+                                            </c:otherwise>    
+                                         </c:choose>
+                                         
 
-                                        <td class="product-remove"><a href="product?pid=${o.id}"><span class="ion-ios-eye"></span></a></td>
-                                        <td class="product-remove"><a href="editproduct?id=${o.id}"><span class="ion-ios-settings"></span></a></td>                                   
-                                        <td class="product-remove"><a href="delete?pid=${o.id}" onclick="showMess(${o.id})"><span class="ion-ios-close"></span></a></td>
+                                        <td class="product-remove"><a href="ViewOrder?Oid=${o.transactionID}"><span class="ion-ios-eye"></span></a></td>
+                                                                          
+                                        
 
                                     </tr><!-- END TR-->
+                                    
                                 </c:forEach>
                 </tbody>
               </table>
+            </form>
               </div>
         </div>
     		</div>

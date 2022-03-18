@@ -84,7 +84,6 @@
                         <a class="dropdown-item" href="shop?sortCategory=">All Products</a> 
                       </div>
                   </li>
-	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                 <c:set var="role" value="${sessionScope.LOGIN_USER.roleID}"></c:set> 
                 <c:if test="${role == 1}">
                   <li class="nav-item dropdown">
@@ -94,7 +93,7 @@
                         <a class="dropdown-item" href="admin/user">USER MANAGEMENT</a>
                         <a class="dropdown-item" href="ordermanager">ORDER MANAGEMENT</a>  
                         <a class="dropdown-item" href="productmanager">PRODUCT MANAGEMENT</a>  
-                        <a class="dropdown-item" href="addproduct">ADD NEW PRODUCT</a>                         
+                        <a class="dropdown-item" href="CallAddProductControl">ADD NEW PRODUCT</a>                         
                       </div>
                   </li>
                 </c:if>

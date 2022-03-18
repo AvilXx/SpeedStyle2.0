@@ -4,7 +4,7 @@
     Author     : Nhut Minh
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page contentType="text/html" pageEncoding="windows-1252"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -362,7 +362,7 @@
                 </form>
             </div>
             <div class="linktr">
-                <a href="home" target="_blank" class="linktr__goal r-link">Back to Home Page ???</a>
+                <a href="productmanager" target="_blank" class="linktr__goal r-link">Back to Product Manager Page ???</a>
             </div>
         </section>
         <%@include file="/View/layout/footer.jsp" %>
