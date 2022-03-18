@@ -90,7 +90,7 @@
                       <a class="nav-link dropdown-toggle" href="shop" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manager</a>
 
                       <div class="dropdown-menu" aria-labelledby="dropdown04">                  
-                        <a class="dropdown-item" href="admin/user">USER MANAGEMENT</a>
+                        <a class="dropdown-item" href="usermanager">USER MANAGEMENT</a>
                         <a class="dropdown-item" href="ordermanager">ORDER MANAGEMENT</a>  
                         <a class="dropdown-item" href="productmanager">PRODUCT MANAGEMENT</a>  
                         <a class="dropdown-item" href="CallAddProductControl">ADD NEW PRODUCT</a>                         

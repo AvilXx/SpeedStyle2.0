@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -25,6 +27,9 @@ public class UserDAO {
     private final static String CHECKLOGINBYUSERNAME = "SELECT * FROM dbo.Users WHERE user_name=? ";
     private final static String CHECKLOGINBYID = "SELECT * FROM dbo.Users WHERE user_id = ? ";
     private final static String SIGNUP = "INSERT INTO dbo.Users VALUES (?, ?, ?, null, null, null, null, 0) ";
+
+    private final static String ALL_USER = "Select * from dbo.Users ";
+    private final static String DELETE =" Delete from dbo.Users where user_id = ?";
 
     public User checkLogin(String username, String password){
         User result = null;
@@ -100,6 +105,42 @@ public class UserDAO {
         }
         return false;
     }   
+
+    public List<User> AllUser(String search) {
+        List<User> list = new ArrayList();
+        try {
+            String query = ALL_USER;
+            
+            if(!search.equals("")){
+                query+= " Where user_name LIKE '%"+search+"%' ";
+            }
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new User(rs.getString(1),
+                                rs.getString(2),
+                                rs.getString(3),
+                                rs.getString(4),
+                                rs.getString(5),
+                                rs.getString(6),
+                                rs.getString(7),
+                                rs.getString(8)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    public void DeleteUser(String id){
+        try{
+                String query = DELETE;
+                conn = new DBUtils().getConnection();
+                ps = conn.prepareStatement(query);
+                ps.setString(1, id);
+                ps.executeUpdate();         
+        }catch(Exception e){}
+    }
+
     public int RandomID() {
         UserDAO dao = new UserDAO();
         int ranNum = ThreadLocalRandom.current().nextInt(1,999999);
@@ -112,9 +153,9 @@ public class UserDAO {
 
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
-        for (int i= 1;i<100;i++){
-        System.out.println(dao.RandomID());
+        List<User> list = dao.AllUser("");
+        for (User o: list){
+            System.out.println(o);
         }
-
     } 
 }
