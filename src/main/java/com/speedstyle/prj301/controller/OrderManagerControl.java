@@ -48,6 +48,7 @@ public class OrderManagerControl extends HttpServlet {
             if(request.getParameter("search") != null){
                 search = request.getParameter("search");                 
         }
+
         OrderDAO dao = new OrderDAO();
         List<Order> listO = dao.getAllOrder(search);
         request.setAttribute("listO", listO);

@@ -49,13 +49,15 @@
         </div>
       </div>
     </div>
-
+    
+   
+                
     <section class="ftco-section ftco-cart">
         <div class="container">
             <div class="row">
                 <div class="col-md-5 ftco-animate form-group">
                     <form>
-                        <input style="search" name="search" placeholder="Search" class="form-control" value="${search}" autocomplete="off">
+                        <input style="search" name="search" placeholder="Search Product Name" class="form-control" value="${search}" autocomplete="off">
                     </form>
                 </div>
             </div>

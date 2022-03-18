@@ -5,7 +5,7 @@
 package com.speedstyle.prj301.controller;
 
 import com.speedstyle.prj301.dao.ProductDAO;
-import com.speedstyle.prj301.dto.Product;
+import com.speedstyle.prj301.dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author avillX
  */
-@WebServlet(name = "DeleteControl", urlPatterns = {"/delete"})
-public class DeleteControl extends HttpServlet {
+@WebServlet(name = "DeleteUserControl", urlPatterns = {"/DeleteUserControl"})
+public class DeleteUserControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,11 +33,11 @@ public class DeleteControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String pid = request.getParameter("pid");
+        String Uid = request.getParameter("Uid");
 
-        ProductDAO dao = new ProductDAO();
-        dao.DeleteProduct(pid);
-        response.sendRedirect("productmanager");
+        UserDAO dao = new UserDAO();
+        dao.DeleteUser(Uid);
+        response.sendRedirect("usermanager");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

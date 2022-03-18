@@ -1,5 +1,4 @@
 com\speedstyle\prj301\controller\ShowCartControl.class
-com\speedstyle\prj301\controller\SignupControl.class
 com\speedstyle\prj301\dto\Cart.class
 com\speedstyle\prj301\controller\LogoutControl.class
 com\speedstyle\prj301\controller\DeleteControl.class
@@ -12,7 +11,6 @@ com\speedstyle\prj301\dto\ProductSize.class
 com\speedstyle\prj301\controller\LoginControl.class
 com\speedstyle\prj301\dto\Product.class
 com\speedstyle\prj301\controller\ProductControl.class
-com\speedstyle\prj301\dao\UserDAO.class
 com\speedstyle\prj301\controller\SubCartControl.class
 com\speedstyle\prj301\dao\ProductDAO.class
 com\speedstyle\prj301\utils\DBUtils.class
