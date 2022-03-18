@@ -4,9 +4,13 @@
  */
 package com.speedstyle.prj301.controller;
 
+import com.speedstyle.prj301.dao.OrderDAO;
+import com.speedstyle.prj301.dto.Order;
 import com.speedstyle.prj301.dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,7 +44,15 @@ public class OrderManagerControl extends HttpServlet {
                  return;
         }
 
-
+        String search ="";
+            if(request.getParameter("search") != null){
+                search = request.getParameter("search");                 
+        }
+        OrderDAO dao = new OrderDAO();
+        List<Order> listO = dao.getAllOrder(search);
+        request.setAttribute("listO", listO);
+        RequestDispatcher rd = request.getRequestDispatcher("/View/Admin/OrderManager.jsp");
+        rd.forward(request, response);
 
     }
 

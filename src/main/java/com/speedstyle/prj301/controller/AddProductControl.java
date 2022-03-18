@@ -37,19 +37,20 @@ public class AddProductControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=windows-1252");
+        response.setContentType("text/html;charset=UTF-8");
         HashMap<String,String> errors = new HashMap<String,String>();
         boolean hasError = false;
         ProductDAO dao = new ProductDAO();
         int id = dao.CountProduct();
         String Name = request.getParameter("Name");
 
-        if (Name.trim().equals("")){
+        if (Name==null){
             errors.put("Name", "Name is empty");
             hasError = true;
-            response.sendRedirect(request.getContextPath()+"/View/Admin/AddNewProduct.jsp");
-        }
 
+            request.getRequestDispatcher("/View/Admin/AddNewProduct.jsp").forward(request, response);
+        }
+        else{
         ProductSize pS = new ProductSize(id,0,0,0,0,0,0);
         pS.setSize39(Integer.valueOf(request.getParameter("size39")));
         pS.setSize40(Integer.valueOf(request.getParameter("size40")));
@@ -73,7 +74,7 @@ public class AddProductControl extends HttpServlet {
             request.setAttribute("sizeList", pS);
             request.setAttribute("errors", errors);
 
-            RequestDispatcher rd = request.getRequestDispatcher("/View/Admin/AddNewProduct.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("addproduct");
             rd.forward(request, response);
         }else{
             log("Add Product " + p.getId());
@@ -81,8 +82,9 @@ public class AddProductControl extends HttpServlet {
             dao.addProduct(p);
             dao.addSizeProduct(pS);
             response.sendRedirect(request.getContextPath()+"/productmanager");
-        }     
-    }
+        }
+    }     
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
