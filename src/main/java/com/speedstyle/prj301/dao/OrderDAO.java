@@ -21,7 +21,9 @@ public class OrderDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    private final static String ALLORDERS = "Select * from dbo.Orders";    
+    private final static String ALLORDERS = "Select * from dbo.Orders";
+    private final static String ALLORDERSOFUSER = "Select * from dbo.Orders where user_id = ?";    
+    private final static String ORDERS_ID = "select * from dbo.Orders where transaction_id = ?";
 
     public List<Order> getAllOrder(String search){
         List<Order> list = new ArrayList<>();        
@@ -45,6 +47,50 @@ public class OrderDAO {
             }
         }catch(Exception e){}
         return list;
+    }
+    public List<Order> getAllOrderOfUser(String userid,String search){
+        List<Order> list = new ArrayList<>();        
+        try{
+            String query = ALLORDERSOFUSER;
+            if(!search.equals("")){
+                query+= " and transaction_id LIKE = "+search;
+            }
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, userid);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                list.add(new Order(rs.getInt(1),
+                                    rs.getString(2),
+                                    rs.getInt(3),
+                                    rs.getInt(4),
+                                    rs.getString(5),
+                                    rs.getDouble(6),
+                                    rs.getString(7),
+                                    rs.getDate(8)));
+            }
+        }catch(Exception e){}
+        return list;
+    }
+    public Order getOrderByID(String Oid){
+        List<Order> list = new ArrayList<>();        
+        try{
+            String query = ORDERS_ID;          
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                return new Order(rs.getInt(1),
+                                    rs.getString(2),
+                                    rs.getInt(3),
+                                    rs.getInt(4),
+                                    rs.getString(5),
+                                    rs.getDouble(6),
+                                    rs.getString(7),
+                                    rs.getDate(8));
+            }
+        }catch(Exception e){}
+        return null;
     }
 
 

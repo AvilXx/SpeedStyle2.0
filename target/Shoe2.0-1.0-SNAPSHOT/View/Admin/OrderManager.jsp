@@ -117,7 +117,7 @@
                                          </c:choose>
                                          
 
-                                        <td class="product-remove"><a href="ViewOrder?Oid=${o.transactionID}"><span class="ion-ios-eye"></span></a></td>
+                                        <td class="product-remove"><a href="order_info?Oid=${o.transactionID}"><span class="ion-ios-eye"></span></a></td>
                                                                           
                                         
 

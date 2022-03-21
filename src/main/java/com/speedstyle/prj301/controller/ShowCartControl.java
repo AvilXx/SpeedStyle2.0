@@ -39,7 +39,7 @@ public class ShowCartControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ProductDAO dao = new ProductDAO();
-
+        List<Product> list = dao.getAllProduct("","");
         Cookie arr[] = request.getCookies();
         String txt = "";
         if(arr!=null){
@@ -49,26 +49,12 @@ public class ShowCartControl extends HttpServlet {
                 }
             }
         }
-        List<ProductCart> pCart = new ArrayList<>();
-        try {
-        if(txt.length()!=0){
-                String[] s = txt.split(".");
-                for(String i:s){
-                    System.out.println(i);
-                    String[] n = i.split(":");
-                        int id = Integer.parseInt(n[0]);
-                        int size = Integer.parseInt(n[1]);
-                        int quantity = Integer.parseInt(n[2]);
-                    Product p = dao.getProductByID(String.valueOf(id));
-                    pCart.add(new ProductCart (p,size,quantity,p.getPrice()));
-                }               
-        }   
-        request.setAttribute("cart", pCart);
+        Cart cart = new Cart(txt,list);
+        List<ProductCart> pCart = cart.getProductCart();
          
-        } catch (Exception e) {
-        } finally{
-            request.getRequestDispatcher("View/cart.jsp").forward(request, response);       
-        }
+        request.setAttribute("cart", pCart);
+        request.getRequestDispatcher("View/cart.jsp").forward(request, response);       
+      
     }  
     
 

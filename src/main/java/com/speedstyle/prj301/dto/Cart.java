@@ -71,7 +71,7 @@ public class Cart {
         products = new ArrayList<>();     
         try{
             if(txt!=null && txt.length()!=0){
-                String[] s = txt.split(",");
+                String[] s = txt.split("_");
                 for(String i:s){
                     String[] n = i.split(":");
                         int id = Integer.parseInt(n[0]);
@@ -89,14 +89,14 @@ public class Cart {
         
         ProductDAO dao = new ProductDAO();
         List<Product> list = dao.getAllProduct("","");
-        String txt ="1:40:1,2:40:4";
+        String txt ="1:40:1_2:40:4";
 //        String[] s = txt.split(",");
 //        for(String i:s){
 //                    System.out.println(i);}
         Cart cart = new Cart(txt,list);
         List<ProductCart> pCart = cart.getProductCart();
             for(ProductCart o :pCart){
-                System.out.println(o);
+                System.out.println(o.product);
             }
     }
 }

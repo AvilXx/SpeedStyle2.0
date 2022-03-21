@@ -9,7 +9,7 @@ package com.speedstyle.prj301.dto;
  * @author avillX
  */
 public class ProductCart {
-    private Product product;
+    Product product;
     private int quantity,size;
     private double price;
     

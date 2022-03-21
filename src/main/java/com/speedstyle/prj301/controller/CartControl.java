@@ -61,12 +61,12 @@ public class CartControl extends HttpServlet {
         if (txt.isEmpty()) {
             txt = id +":"+ size +":"+ quantity;
         } else {
-            txt = txt + "." + id +":"+ size +":"+ quantity;
+            txt = txt + "_" + id +":"+ size +":"+ quantity;
         }
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(60 * 60 * 24);
         response.addCookie(c);
-        response.sendRedirect("/detail_cart");
+        response.sendRedirect("ShowCartControl");
 }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
