@@ -4,6 +4,7 @@
  */
 package com.speedstyle.prj301.dao;
 
+import com.speedstyle.prj301.dto.Product;
 import com.speedstyle.prj301.dto.User;
 import com.speedstyle.prj301.utils.DBUtils;
 import java.sql.Connection;
@@ -30,6 +31,8 @@ public class UserDAO {
 
     private final static String ALL_USER = "Select * from dbo.Users ";
     private final static String DELETE =" Delete from dbo.Users where user_id = ?";
+    private final static String UPDATEUSER = "UPDATE dbo.Users SET name = ?, email = ?, phone = ?, address = ? where user_name = ?";
+    private final static String UPDATEUSERPASS = "UPDATE dbo.Users SET password = ? where user_name = ?";
 
     public User checkLogin(String username, String password){
         User result = null;
@@ -131,6 +134,30 @@ public class UserDAO {
         }
         return list;
     }
+    public User getUserInformation(String username) {      
+        try {
+            String query = ALL_USER;
+            
+            if(!username.equals("")){
+                query+= " Where user_name LIKE '"+username+"'";
+            }
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new User(rs.getString(1),
+                                rs.getString(2),
+                                rs.getString(3),
+                                rs.getString(4),
+                                rs.getString(5),
+                                rs.getString(6),
+                                rs.getString(7),
+                                rs.getString(8));
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
     public void DeleteUser(String id){
         try{
                 String query = DELETE;
@@ -150,12 +177,44 @@ public class UserDAO {
         }
         return RandomID();
     }
+    public boolean UpdateUser(User u) {
+        String query = UPDATEUSER;
+        try {
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            
+            ps.setString(1, u.getFullname());          
+            ps.setString(2, u.getEmail());
+            ps.setString(3, u.getPhone());
+            ps.setString(4, u.getAddress());
+            ps.setString(5, u.getUsername());
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+        }
+        return false;
+    }
+    public boolean UpdateUserPass(User u) {
+        String query = UPDATEUSERPASS;
+        try {
+            conn = new DBUtils().getConnection();
+            ps = conn.prepareStatement(query);
+            
+            ps.setString(1, u.getPassword());          
+            ps.setString(2, u.getUsername());
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
-        List<User> list = dao.AllUser("");
-        for (User o: list){
-            System.out.println(o);
-        }
+        User u = new User("","tri","1234","Phan Minh Trí","triiii@gmail.com","074222947","Quận 9, HCM","");
+        dao.UpdateUserPass(u);
+        User list = dao.getUserInformation("tri");
+            System.out.println(list);
+        
     } 
 }

@@ -55,7 +55,7 @@
                                     </c:if>
                                     <c:if test="${not empty login}">
                                         <div class="col-md-2 pr-4 d-flex topper align-items-right text-lg-right">
-                                                <a href="user/${sessionScope.LOGIN_USER.username}">${sessionScope.LOGIN_USER.username}    | </a>
+                                                <a href="user_infor">${sessionScope.LOGIN_USER.username}    | </a>
                                                 <a href="logout">   Log Out</a>
                                         </div> 
                                     </c:if>

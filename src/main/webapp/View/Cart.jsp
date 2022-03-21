@@ -89,7 +89,7 @@
                                          
                                                                 </div>
                                                         </td>
-                                                        <td class="total">$${o.price*o.quantity}</td>
+                                                        <td class="total">$</td>
 						        
 						        
 						      </tr><!-- END TR-->
@@ -119,7 +119,7 @@
     					<hr>
     					<p class="d-flex total-price">
     						<span>Total</span>
-    						<span>${total}</span>
+    						<span></span>
     					</p>
     				</div>
                                 <form action="checkout" method="post">
@@ -153,7 +153,7 @@
   <script>
 		$(document).ready(function(){
 
-		var quantitiy=0;
+		var quantity=0;
 		   $('.quantity-right-plus').click(function(e){
 		        
 		        // Stop acting like a button

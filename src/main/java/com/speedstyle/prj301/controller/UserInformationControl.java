@@ -4,7 +4,9 @@
  */
 package com.speedstyle.prj301.controller;
 
+import com.speedstyle.prj301.dao.OrderDAO;
 import com.speedstyle.prj301.dao.UserDAO;
+import com.speedstyle.prj301.dto.Order;
 import com.speedstyle.prj301.dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,15 +39,24 @@ public class UserInformationControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        UserDAO dao = new UserDAO();
+        HttpSession ss = request.getSession();
+        User us =  (User) ss.getAttribute("LOGIN_USER");
+
+        
         String search ="";
             if(request.getParameter("search") != null){
                 search = request.getParameter("search");                 
         }
-        UserDAO dao = new UserDAO();
-        List<User> listU = dao.AllUser(search);
-        request.setAttribute("listU", listU);
-        RequestDispatcher rd = request.getRequestDispatcher("/View/Admin/UserManager.jsp");
-        rd.forward(request, response);
+
+        OrderDAO Odao = new OrderDAO();
+        User listU = dao.getUserInformation(us.getUsername());
+        request.setAttribute("InforU", listU);
+        List<Order> listO = Odao.getAllOrderOfUser(listU.getUserID(),search);
+        request.setAttribute("listO", listO);
+
+        request.getRequestDispatcher("/View/Admin/UserInformation.jsp").forward(request, response);
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

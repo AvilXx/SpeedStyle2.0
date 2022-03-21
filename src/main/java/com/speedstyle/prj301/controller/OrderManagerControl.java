@@ -39,6 +39,7 @@ public class OrderManagerControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession ss = request.getSession();
         User us =  (User) ss.getAttribute("LOGIN_USER");
+
         if (us.getRoleID().equals("0")){
                  response.sendRedirect("logout");
                  return;
