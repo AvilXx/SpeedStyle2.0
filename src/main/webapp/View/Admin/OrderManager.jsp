@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Product Manager</title>
+        <title>SpeedStyle - Not Just For Show</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -38,7 +38,7 @@
     <body class="goto-here">
       
     <%@include file="/View/layout/header.jsp" %>
-    <c:set var="url" value="${pageContext.request.contextPath}/infor"/>
+    <c:set var="url" value="${pageContext.request.contextPath}/user_infor"/>
     <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -117,7 +117,7 @@
                                          </c:choose>
                                          
 
-                                        <td class="product-remove"><a href="order_info?Oid=${o.transactionID}"><span class="ion-ios-eye"></span></a></td>
+                                        <td class="product-remove"><a href="OrderDetail?Tid=${o.transactionID}"><span class="ion-ios-eye"></span></a></td>
                                                                           
                                         
 

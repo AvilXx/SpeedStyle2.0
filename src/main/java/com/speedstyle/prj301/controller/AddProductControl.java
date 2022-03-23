@@ -41,7 +41,7 @@ public class AddProductControl extends HttpServlet {
         HashMap<String,String> errors = new HashMap<String,String>();
         boolean hasError = false;
         ProductDAO dao = new ProductDAO();
-        int id = dao.CountProduct();
+        int id = dao.CountProduct()+ 1;
         String Name = request.getParameter("Name");
 
         if (Name==null){

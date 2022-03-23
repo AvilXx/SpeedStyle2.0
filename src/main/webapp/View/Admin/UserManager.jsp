@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>User Manager</title>
+        <title>SpeedStyle - Not Just For Show</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -84,8 +84,13 @@
                             </thead>
                             <tbody>
                                 <c:forEach items="${listU}" var="o">
-                                    
-                                    <tr class="text-center">
+                                    <c:if test="${o.roleID == 1}">
+                                        <c:set var="color" value="#dddddd" />
+                                    </c:if>
+                                    <c:if test="${o.roleID == 0}">
+                                        <c:set var="color" value="#ffffff" />
+                                    </c:if>
+                                    <tr class="text-center" style="background-color: ${color}">
                                         <td class="product-id">${o.userID}</td>
                                         
                                         <td class="name"><a href="${url}?uid=${o.userID}">${o.username}</a></td> 

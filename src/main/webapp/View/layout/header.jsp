@@ -55,7 +55,7 @@
                                     </c:if>
                                     <c:if test="${not empty login}">
                                         <div class="col-md-2 pr-4 d-flex topper align-items-right text-lg-right">
-                                                <a href="user_infor">${sessionScope.LOGIN_USER.username}    | </a>
+                                                <a href="user_infor?Uid=${sessionScope.LOGIN_USER.userID}">${sessionScope.LOGIN_USER.username}    | </a>
                                                 <a href="logout">   Log Out</a>
                                         </div> 
                                     </c:if>
@@ -87,17 +87,17 @@
                 <c:set var="role" value="${sessionScope.LOGIN_USER.roleID}"></c:set> 
                 <c:if test="${role == 1}">
                   <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="shop" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manager</a>
+                      <a class="nav-link dropdown-toggle" href="" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manager</a>
 
                       <div class="dropdown-menu" aria-labelledby="dropdown04">                  
                         <a class="dropdown-item" href="usermanager">USER MANAGEMENT</a>
                         <a class="dropdown-item" href="ordermanager">ORDER MANAGEMENT</a>  
                         <a class="dropdown-item" href="productmanager">PRODUCT MANAGEMENT</a>  
-                        <a class="dropdown-item" href="CallAddProductControl">ADD NEW PRODUCT</a>                         
+                        <a class="dropdown-item" href="addproduct">ADD NEW PRODUCT</a>                         
                       </div>
                   </li>
                 </c:if>
-                  <li class="nav-item cta cta-colored"><a href="detail_cart" class="nav-link"><span class="icon-shopping_cart"></span>[${sessionScope.Cart}]</a></li>
+                  <li class="nav-item cta cta-colored"><a href="mycart" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
 
 	        </ul>
 	      </div>

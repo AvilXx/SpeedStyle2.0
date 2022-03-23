@@ -39,14 +39,22 @@ public class UpdateUserInforControl extends HttpServlet {
         User us =  (User) ss.getAttribute("LOGIN_USER");
 
         UserDAO dao = new UserDAO();
+        OrderDAO Odao = new OrderDAO();
+        String Username ="";
+            if(request.getParameter("Uname") != null){
+                Username = request.getParameter("Uname");                 
+        }
+        User checkLogin = dao.checkLoginByUserName(Username);
+
         String act = request.getParameter("act");
+        String TransactionID = request.getParameter("Tid");
         if(act.equals("infor")){
             User newUs = new User();
             newUs.setFullname(request.getParameter("fullname")); 
             newUs.setPhone(request.getParameter("phone"));
             newUs.setEmail(request.getParameter("email"));
             newUs.setAddress(request.getParameter("address"));
-            newUs.setUsername(us.getUsername());
+            newUs.setUsername(Username);
             dao.UpdateUser(newUs);
         } else if(act.equals("pass")){
             User newUs = new User();
@@ -54,12 +62,17 @@ public class UpdateUserInforControl extends HttpServlet {
             User check = dao.checkLogin(us.getUsername(), OldPass);
             if(check!= null) {
                 newUs.setPassword(request.getParameter("NewPass"));
-                newUs.setUsername(us.getUsername());
+                newUs.setUsername(Username);
                 dao.UpdateUserPass(newUs);
-            }  
-        }         
-        
-        response.sendRedirect(request.getContextPath()+"/user_infor");
+            } 
+        }else if(act.equals("status")){           
+            String Update = request.getParameter("status");
+            Odao.UpdateStatusOrder(TransactionID, Update);
+        } 
+    if(act.equals("status")){
+        response.sendRedirect(request.getContextPath()+"/OrderDetail?Tid="+TransactionID);
+    }else
+        response.sendRedirect(request.getContextPath()+"/user_infor?Uid="+checkLogin.getUserID());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

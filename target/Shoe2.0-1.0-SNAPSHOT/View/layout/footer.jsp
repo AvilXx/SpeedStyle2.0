@@ -4,7 +4,7 @@
     Author     : avillX
 --%>
 
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <head> 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -67,7 +67,7 @@
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 L� V?n Vi?t, ph??ng T?ng Nh?n Ph� A, Qu?n 9, TP.H? Ch� Minh</span></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text">203 Lê Văn Việt, phường Tăng Nhơn Phú A, Quận 9, TP.Hồ Chí Minh</span></li>
 	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+84 3668770727</span></a></li>
 	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">speyle081222@email.com</span></a></li>
 	              </ul>

@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Cart</title>
+        <title>SpeedStyle - Not Just For Show</title>
         <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -61,16 +61,18 @@
 						        <th>&nbsp;</th>
 						        <th>Size</th>
 						        <th>Price</th>
+                                                        
 						        <th>Quantity</th>
 						        <th>Total</th>
 						      </tr>
 						    </thead>
 						    <tbody>
-
-                                                    <c:forEach items="${requestScope.cart.products}" var="o">
-                                                     
+                                                    <c:set var="STT" value="0" />
+                                                    <c:set var="total" value="0" />
+                                                    <c:forEach items="${requestScope.pCart}" var="o">
+                                                      <c:set var="STT" value="${STT+1}" />
 						      <tr class="text-center">
-						        <td class="product-remove"><a href="SubCartControl?id=${o.product.id}"><span class="ion-ios-close"></span></a></td>
+                                                          <td class="product-id">${STT}</td>
 						        
 						        <td class="image-prod"><div class="img" style="background-image:url(${o.product.image_link});"></div></td>
 						        
@@ -81,15 +83,16 @@
 						        <td class="price">${o.size}</td>
 						        <td class="price">$${o.price}</td>
 						        
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-                                                                    <button><a href="">-</a><button>
-                                                                    <input type="text" name="quantity" class="quantity form-control input-number" value="${o.quantity}" min="1" max="100">
-                                                                    <button><a href="">+</a><button>
+						        <td class="quantity" style="text-align: center">
+						        	
+                                                            <button style="width: 30px"><a href="process?num=-1&id=${o.product.id}">-</a></button>
+                                                                    ${o.quantity}
+                                                                    <button style="width: 30px"><a href="process?num=1&id=${o.product.id}">+</a></button>
                                          
-                                                                </div>
+                                                                
                                                         </td>
-                                                        <td class="total">$</td>
+                                                        <c:set var="total" value="${total+(o.price * o.quantity)}" />
+                                                        <td class="total">$${o.quantity * o.price}</td>
 						        
 						        
 						      </tr><!-- END TR-->
@@ -119,7 +122,7 @@
     					<hr>
     					<p class="d-flex total-price">
     						<span>Total</span>
-    						<span></span>
+    						<span>$${total}</span>
     					</p>
     				</div>
                                 <form action="checkout" method="post">

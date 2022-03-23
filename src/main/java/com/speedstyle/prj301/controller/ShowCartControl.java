@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author avillX
  */
-@WebServlet(name = "ShowCartControl", urlPatterns = {"/detail_cart"})
+@WebServlet(name = "ShowCartControl", urlPatterns = {"/mycart"})
 public class ShowCartControl extends HttpServlet {
 
     /**
@@ -38,22 +38,7 @@ public class ShowCartControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ProductDAO dao = new ProductDAO();
-        List<Product> list = dao.getAllProduct("","");
-        Cookie arr[] = request.getCookies();
-        String txt = "";
-        if(arr!=null){
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt += o.getValue();
-                }
-            }
-        }
-        Cart cart = new Cart(txt,list);
-        List<ProductCart> pCart = cart.getProductCart();
          
-        request.setAttribute("cart", pCart);
-        request.getRequestDispatcher("View/cart.jsp").forward(request, response);       
       
     }  
     
@@ -70,6 +55,21 @@ public class ShowCartControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ProductDAO dao = new ProductDAO();
+        List<Product> list = dao.getAllProduct("","");
+        Cookie arr[] = request.getCookies();
+        String txt = "";
+        if(arr!=null){
+            for (Cookie o : arr) {
+                if (o.getName().equals("cart")) {
+                    txt += o.getValue();
+                }
+            }
+        }
+        Cart cart = new Cart(txt,list);
+        List<ProductCart> pList = cart.getProductCart();
+        request.setAttribute("pCart", pList);
+        request.getRequestDispatcher("View/cart.jsp").forward(request, response);      
         
 }
     /**

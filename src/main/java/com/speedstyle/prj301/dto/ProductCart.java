@@ -4,6 +4,9 @@
  */
 package com.speedstyle.prj301.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author avillX
@@ -56,9 +59,6 @@ public class ProductCart {
     public void setPrice(double price) {
         this.price = price;
     }
-
-
-
-    
+   
 
 }

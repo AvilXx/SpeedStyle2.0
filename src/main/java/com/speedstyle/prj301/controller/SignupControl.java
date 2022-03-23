@@ -21,7 +21,8 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "SignupControl", urlPatterns = {"/signup"})
 public class SignupControl extends HttpServlet {
-    private static final String URL = "/View/signup.jsp";
+    private static final String ERROR = "/View/signup.jsp";
+    private static final String SUCCESS = "login";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,7 +35,7 @@ public class SignupControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        String URL = ERROR;
         String err="";
         try {  
             String username = request.getParameter("username");
@@ -46,7 +47,8 @@ public class SignupControl extends HttpServlet {
             }else {
                 UserDAO dao = new UserDAO();
                 User user = dao.checkLoginByUserName(username);
-                if (user == null) {                                       
+                if (user == null) {            
+                    URL = SUCCESS;                           
                     dao.signUp(username, password);
                     err = "The account had created.";
                     request.setAttribute("MSG_SIGNUP", err);
@@ -57,12 +59,19 @@ public class SignupControl extends HttpServlet {
             } 
         } catch (Exception e) {
         } finally{
-            request.getRequestDispatcher(URL).forward(request, response);           
+            if(URL==ERROR){
+                request.getRequestDispatcher(URL).forward(request, response);
+            }else{
+                response.sendRedirect(SUCCESS);
+            }   
+}
+                       
         }
         
         
        
-       }
+       
+
     
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

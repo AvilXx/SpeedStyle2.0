@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Product Manager</title>
+        <title>SpeedStyle - Not Just For Show</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -39,27 +39,27 @@
 
         <%@include file="/View/layout/header.jsp" %>
         <c:set var="url" value="${pageContext.request.contextPath}/productmanager"/>
-        
+
         <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center">
                     <div class="col-md-9 ftco-animate text-center">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="home">Home</a></span> <span>Manager</span></p>
-                        <h1 class="mb-0 bread">Product</h1>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="home">Home</a></span> <span>User</span></p>
+                        <h1 class="mb-0 bread">Information</h1>
                     </div>
                 </div>
             </div>
         </div>
 
-        <section class="ftco-section">
+        <section class="ftco-section"  style="padding: 3em 0">
             <div class="container">
                 <div class="row mt-5">
                     <div class="col-md-12 nav-link-wrap">
                         <div class="nav nav-pills d-flex text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <a class="nav-link ftco-animate active mr-lg-1" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">User Information</a>
-
+                        <c:if test="${sessionScope.LOGIN_USER.username == requestScope.InforU.username}">
                             <a class="nav-link ftco-animate mr-lg-1" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Change Password</a>
-
+                        </c:if>
 
 
                         </div>
@@ -79,6 +79,7 @@
                                             <div class="infor" style="margin-left: 20%;">
                                                 <table style="margin: 4% 24%; font-size: 20px; ">
                                                     <input type="hidden" name="act" value="infor"/>
+                                                    <input type="hidden" name="Uname" value="${requestScope.InforU.username}"/>
                                                     <tr>
                                                         <td><label for="name">Name: </label></td>
                                                         <td><input name ="fullname" type="text" size="60" value="${requestScope.InforU.fullname}" autocomplete="off"/></td>
@@ -106,7 +107,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                        <c:if test="${sessionScope.LOGIN_USER.username == requestScope.InforU.username}">
                             <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-day-2-tab">
                                 <div class="p-4">
                                     <div class="col-md-5 ftco-animate form-group">
@@ -114,9 +115,11 @@
                                             <div class="infor" style="margin-left: 20%;">
                                                 <table style="margin: 4% 24%; font-size: 20px; ">
                                                     <input type="hidden" name="act" value="pass"/>
+                                                    <input type="hidden" name="Uname" value="${requestScope.InforU.username}"/>
                                                     <tr>
                                                         <td><label for="OldPass">Old Password: </label>
-                                                            <input  type="password" size="60" value="" name="OldPass" required pattern="\S+" />
+                                                            <input  onchange="onChange1()" id="passSQL" type="hidden" name="passSQL" value="${requestScope.InforU.password}"/>
+                                                            <input onchange="onChange1()" id="OldPass" type="password" size="60" value="" name="OldPass" required pattern="\S+" />
                                                             <p class="help-block alert-danger">${requestScope.error}</p>
                                                         </td>
                                                     </tr>
@@ -129,102 +132,103 @@
                                                             <input onChange="onChange()" type="password" size="60" value="" name="ReNewPass"  required pattern="\S+"/></td>
                                                     </tr>
                                                 </table>
-                                                <input style="margin-left:550px" type="submit"  class="submit" name="Update" />   
+                                                        <input style="margin-left:550px" type="submit" class="submit"  value="Update" />   
                                             </div>
 
                                         </form>
                                     </div>
                                 </div>              
                             </div>
+                        </c:if>
                         </div>
                     </div>
                 </div>
         </section>
 
-          <section class="ftco-section ftco-cart">
-        <div class="container">
-            <h2>Order's History</h2>
-            <div class="row">
-<!--                <div class="col-md-5 ftco-animate form-group">
-                    <form>
-                        <input style="search" name="search" placeholder="Search" class="form-control" value="" autocomplete="off">
-                    </form>
-                </div>-->
-            </div>
-        </div>
-        <div class="container">
+        <section class="ftco-section ftco-cart">
+            <div class="container">
+                <h2>Order's History</h2>
                 <div class="row">
-        <div class="col-md-12 ftco-animate">
-                <div class="cart-list">
-                    <form name="f" method="POST">
-                        <table class="table">
-                            <thead class="thead-primary">
-                              <tr class="text-center">
-                                <th>OrderID</th>
-                                
-                                <th>Order's Date</th>
-                                <th>UserID</th>
-                                
-                                <th>Phone</th>
-                                <th>Status</th>
-                                
-                                
-                                <th>Update</th>
-                                
-                              </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${listO}" var="o">
-                                    
-                                    <tr class="text-center">
-                                        <td class="product-id">${o.transactionID}</td>
-                                        
+                    <!--                <div class="col-md-5 ftco-animate form-group">
+                                        <form>
+                                            <input style="search" name="search" placeholder="Search" class="form-control" value="" autocomplete="off">
+                                        </form>
+                                    </div>-->
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 ftco-animate">
+                        <div class="cart-list">
+                            <form name="f" method="POST">
+                                <table class="table">
+                                    <thead class="thead-primary">
+                                        <tr class="text-center">
+                                            <th>OrderID</th>
 
-                                        <td class="product-name">
-                                            <h3>${o.created}</h3>
-                                        </td>
-                                        <td class="price"><a href="${url}?uid=${o.userID}">${o.userID}</a></td> 
-                                        <td class="price">0${o.phone}</td>
-                                        
-                                        
-<!--                                            <select id="size" id="" class="form-control" value="o.status">
-                                                <option value="Processing" style="color: Blue">Processing</option>
-                                                <option value="Completed" style="color: Green">Completed</option>
-                                                <option value="Rejected" style="color: Orange">Rejected</option>
-                                                <option value="Cancelled" style="color: Red">Cancelled</option>
-                                            </select>-->
-                                        <c:choose>
-                                            <c:when test="${o.status == 'Processing'}">
-                                               <td class="status" style="color: Blue; font-weight: bold;">${o.status}</td>
-                                            </c:when>
-                                            <c:when test="${o.status == 'Completed'}">
-                                               <td class="status" style="color: Green; font-weight: bold;">${o.status}</td>
-                                            </c:when>
-                                            <c:when test="${o.status == 'Cancelled'}">
-                                               <td class="status" style="color: red; font-weight: bold;">${o.status}</td>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <td class="status" style="color: Orange; font-weight: bold;">${o.status}</td>
-                                            </c:otherwise>    
-                                         </c:choose>
-                                         
+                                            <th>Order's Date</th>
+                                            <th>UserID</th>
 
-                                        <td class="product-remove"><a href="order_info?Oid=${o.transactionID}"><span class="ion-ios-eye"></span></a></td>
-                                                                          
-                                        
+                                            <th>Phone</th>
+                                            <th>Status</th>
 
-                                    </tr><!-- END TR-->
-                                    
-                                </c:forEach>
-                </tbody>
-              </table>
-            </form>
-              </div>
-        </div>
-    		</div>
-    		
-	</div>
-    </section>
+
+                                            <th>Update</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${listO}" var="o">
+
+                                            <tr class="text-center">
+                                                <td class="product-id">${o.transactionID}</td>
+
+
+                                                <td class="product-name">
+                                                    <h3>${o.created}</h3>
+                                                </td>
+                                                <td class="price"><a href="${url}?uid=${o.userID}">${o.userID}</a></td> 
+                                                <td class="price">0${o.phone}</td>
+
+
+                                                <!--                                            <select id="size" id="" class="form-control" value="o.status">
+                                                                                                <option value="Processing" style="color: Blue">Processing</option>
+                                                                                                <option value="Completed" style="color: Green">Completed</option>
+                                                                                                <option value="Rejected" style="color: Orange">Rejected</option>
+                                                                                                <option value="Cancelled" style="color: Red">Cancelled</option>
+                                                                                            </select>-->
+                                                <c:choose>
+                                                    <c:when test="${o.status == 'Processing'}">
+                                                        <td class="status" style="color: Blue; font-weight: bold;">${o.status}</td>
+                                                    </c:when>
+                                                    <c:when test="${o.status == 'Completed'}">
+                                                        <td class="status" style="color: Green; font-weight: bold;">${o.status}</td>
+                                                    </c:when>
+                                                    <c:when test="${o.status == 'Cancelled'}">
+                                                        <td class="status" style="color: red; font-weight: bold;">${o.status}</td>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <td class="status" style="color: Orange; font-weight: bold;">${o.status}</td>
+                                                    </c:otherwise>    
+                                                </c:choose>
+
+
+                                                <td class="product-remove"><a href="OrderDetail?Tid=${o.transactionID}"><span class="ion-ios-eye"></span></a></td>
+
+
+
+                                            </tr><!-- END TR-->
+
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
 
         <%@include file="/View/layout/footer.jsp" %>
         <!-- loader -->
@@ -246,6 +250,17 @@
                     confirm.setCustomValidity('Passwords do not match');
                 }
             }
+            function onChange1() {
+                const password1 = document.querySelector('input[name=passSQL]');
+                const confirm1 = document.querySelector('input[name=OldPass]');
+                if (confirm1.value === password1.value) {
+                    confirm1.setCustomValidity('');      
+                    
+                } else {
+                    confirm1.setCustomValidity('Old Pass do not match!! Please input again Old Password!!!'); 
+                }
+            }
+            
         </script>
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery-migrate-3.0.1.min.js"></script>
