@@ -43,7 +43,8 @@ public class Cart {
             ProductCart m = getProductCartById(p.getProduct().getId());
             if(m.getSize() == p.getSize()){
                 m.setQuantity(m.getQuantity()+ quantity);
-            }
+            }else
+            products.add(p); 
         }else
             products.add(p);  
     }
@@ -89,14 +90,14 @@ public class Cart {
         
         ProductDAO dao = new ProductDAO();
         List<Product> list = dao.getAllProduct("","");
-        String txt ="1:40:1_2:40:4";
+        String txt ="";
 //        String[] s = txt.split(",");
 //        for(String i:s){
 //                    System.out.println(i);}
         Cart cart = new Cart(txt,list);
         List<ProductCart> pCart = cart.getProductCart();
             for(ProductCart o :pCart){
-                System.out.println(o.product);
+                System.out.println(o);
             }
     }
 }

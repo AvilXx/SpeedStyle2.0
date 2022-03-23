@@ -5,20 +5,27 @@
 package com.speedstyle.prj301.controller;
 
 import com.speedstyle.prj301.dao.OrderDAO;
+import com.speedstyle.prj301.dao.UserDAO;
+import com.speedstyle.prj301.dto.Order;
+import com.speedstyle.prj301.dto.ProductCart;
+import com.speedstyle.prj301.dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author avillX
  */
-@WebServlet(name = "OrderInforControl", urlPatterns = {"/order_info"})
-public class OrderInforControl extends HttpServlet {
+@WebServlet(name = "OrderDetail", urlPatterns = {"/OrderDetail"})
+public class OrderDetail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,8 +39,31 @@ public class OrderInforControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        HttpSession ss = request.getSession();
+        User us =  (User) ss.getAttribute("LOGIN_USER");
         OrderDAO dao = new OrderDAO();
-        String Oid = request.getParameter("Oid");
+        UserDAO Udao = new UserDAO();
+
+        String TransactionID ="";
+            if(request.getParameter("Tid") != null){
+                TransactionID = request.getParameter("Tid");                 
+        }
+        String Update ="";
+            if(request.getParameter("act") != null){
+                Update = request.getParameter("act");                 
+        }
+        if(Update.equals("status")){
+            
+        }
+        Order OrderInfo = dao.getOrderByID(TransactionID);
+        List<ProductCart> PList = dao.getAllOrderDetail(TransactionID);
+        request.setAttribute("OrderInfo", OrderInfo);
+        request.setAttribute("listO", PList);
+        
+
+        RequestDispatcher rd = request.getRequestDispatcher("/View/Admin/OrderInformation.jsp");
+        rd.forward(request, response);
 
     }
 

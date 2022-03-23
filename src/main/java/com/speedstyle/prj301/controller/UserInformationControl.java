@@ -48,9 +48,13 @@ public class UserInformationControl extends HttpServlet {
             if(request.getParameter("search") != null){
                 search = request.getParameter("search");                 
         }
-
+        String User_id ="";
+            if(request.getParameter("Uid") != null){
+                User_id = request.getParameter("Uid");                 
+        }
+        
         OrderDAO Odao = new OrderDAO();
-        User listU = dao.getUserInformation(us.getUsername());
+        User listU = dao.getUserInformation(User_id);
         request.setAttribute("InforU", listU);
         List<Order> listO = Odao.getAllOrderOfUser(listU.getUserID(),search);
         request.setAttribute("listO", listO);

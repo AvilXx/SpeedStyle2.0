@@ -11,10 +11,61 @@ import java.sql.Date;
  * @author avillX
  */
 public class Order {
-    private int TransactionID,UserID,Phone;
-    private Double Total;
-    private String Address , Mess, status;
+    private int transactionID,phone;
+    private Double total;
+    private String address , mess, status,userID;
     private Date created;
+
+    public Order(int transactionID, String status, String userID, int phone, String address, Double total, String mess, Date created) {
+        this.transactionID = transactionID;
+        this.phone = phone;
+        this.total = total;
+        this.address = address;
+        this.mess = mess;
+        this.status = status;
+        this.userID = userID;
+        this.created = created;
+    }
+
+    public int getTransactionID() {
+        return transactionID;
+    }
+
+    public void setTransactionID(int transactionID) {
+        this.transactionID = transactionID;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMess() {
+        return mess;
+    }
+
+    public void setMess(String mess) {
+        this.mess = mess;
+    }
 
     public String getStatus() {
         return status;
@@ -24,52 +75,12 @@ public class Order {
         this.status = status;
     }
 
-    public int getTransactionID() {
-        return TransactionID;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setTransactionID(int TransactionID) {
-        this.TransactionID = TransactionID;
-    }
-
-    public int getUserID() {
-        return UserID;
-    }
-
-    public void setUserID(int UserID) {
-        this.UserID = UserID;
-    }
-
-    public int getPhone() {
-        return Phone;
-    }
-
-    public void setPhone(int Phone) {
-        this.Phone = Phone;
-    }
-
-    public Double getTotal() {
-        return Total;
-    }
-
-    public void setTotal(Double Total) {
-        this.Total = Total;
-    }
-
-    public String getAddress() {
-        return Address;
-    }
-
-    public void setAddress(String Address) {
-        this.Address = Address;
-    }
-
-    public String getMess() {
-        return Mess;
-    }
-
-    public void setMess(String Mess) {
-        this.Mess = Mess;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public Date getCreated() {
@@ -80,15 +91,5 @@ public class Order {
         this.created = created;
     }
 
-    public Order(int TransactionID, String status, int UserID, int Phone, String Address, Double Total, String Mess, Date created) {
-        this.TransactionID = TransactionID;
-        this.UserID = UserID;
-        this.status = status;
-        this.Phone = Phone;
-        this.Total = Total;
-        this.Address = Address;
-        this.Mess = Mess;
-        this.created = created;
-    }
-
 }
+    

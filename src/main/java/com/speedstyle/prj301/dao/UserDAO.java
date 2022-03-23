@@ -45,9 +45,10 @@ public class UserDAO {
                 ps.setString(2, password);
                 rs = ps.executeQuery();
                 if (rs.next()) {
+                    String userID = rs.getString("user_id");
                     String fullname = rs.getString("name");
                     String roleid = rs.getString("isAdmin");
-                    result = new User("",username, password, fullname,"","","", roleid);
+                    result = new User(userID ,username, password, fullname,"","","", roleid);
                 }
             }
         } catch (Exception e) {
@@ -64,9 +65,10 @@ public class UserDAO {
                 ps.setString(1, username);
                 rs = ps.executeQuery();
                 if (rs.next()) {
+                    String userID = rs.getString("user_id");
                     String fullname = rs.getString("name");
                     String roleid = rs.getString("isAdmin");
-                    result = new User("",username,"", fullname,"","","", roleid);
+                    result = new User(userID,username,"", fullname,"","","", roleid);
                 }
             }
         } catch (Exception e) {
@@ -134,12 +136,12 @@ public class UserDAO {
         }
         return list;
     }
-    public User getUserInformation(String username) {      
+    public User getUserInformation(String id) {      
         try {
             String query = ALL_USER;
             
-            if(!username.equals("")){
-                query+= " Where user_name LIKE '"+username+"'";
+            if(!id.equals("")){
+                query+= " Where user_id LIKE '"+id+"'";
             }
             conn = new DBUtils().getConnection();
             ps = conn.prepareStatement(query);

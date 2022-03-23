@@ -17,6 +17,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,8 +40,7 @@ public class CartControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String path = request.getPathInfo();
         log(path);
-        ProductDAO dao = new ProductDAO();
-        List<Product> list = dao.getAllProduct("","");
+        
 
         Cookie arr[] = request.getCookies();
         String txt = "";
@@ -66,7 +66,14 @@ public class CartControl extends HttpServlet {
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(60 * 60 * 24);
         response.addCookie(c);
-        response.sendRedirect("ShowCartControl");
+
+        ProductDAO dao = new ProductDAO();
+        List<Product> list = dao.getAllProduct("","");
+        Cart cart = new Cart(txt,list);
+        HttpSession session = request.getSession();
+        session.setAttribute("CART", cart.getProductCart().size());
+
+        response.sendRedirect("product?pid="+id);
 }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

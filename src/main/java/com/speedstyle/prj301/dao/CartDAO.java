@@ -17,19 +17,19 @@ import java.util.List;
  */
 public class CartDAO {
 
-//    public List<ProductCart> Cart (String txt,List<Product> plist){
-//        Cart cart = new Cart(); 
+//    public List<ProductCart> Cart (String txt){
+//        ProductCart product = new ProductCart(); 
 //        ProductDAO dao = new ProductDAO();
 //        List<ProductCart> list = new ArrayList<>();     
 //        try{
 //            if(txt!=null && txt.length()!=0){
-//                String[] s = txt.split(".");
+//                String[] s = txt.split("_");
 //                for(String i:s){
 //                    String[] n = i.split(":");
-//                        int id = Integer.parseInt(n[0]);
+//                        String id = n[0];
 //                        int size = Integer.parseInt(n[1]);
 //                        int quantity = Integer.parseInt(n[2]);
-//                    Product p = dao.getProductByID(String.valueOf(id));
+//                    Product p = dao.getProductByID(id);
 //                    ProductCart t = new ProductCart (p,size,quantity,p.getPrice());
 //                    cart.addProductCart(t,quantity);
 //                }
