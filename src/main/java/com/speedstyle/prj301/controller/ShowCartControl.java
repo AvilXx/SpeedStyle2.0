@@ -8,6 +8,7 @@ import com.speedstyle.prj301.dao.ProductDAO;
 import com.speedstyle.prj301.dto.Cart;
 import com.speedstyle.prj301.dto.Product;
 import com.speedstyle.prj301.dto.ProductCart;
+import com.speedstyle.prj301.dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -55,6 +57,8 @@ public class ShowCartControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession ss = request.getSession();
+        User us =  (User) ss.getAttribute("LOGIN_USER");
         ProductDAO dao = new ProductDAO();
         List<Product> list = dao.getAllProduct("","");
         Cookie arr[] = request.getCookies();

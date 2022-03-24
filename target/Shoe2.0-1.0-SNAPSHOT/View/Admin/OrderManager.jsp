@@ -91,7 +91,7 @@
                                         <td class="product-name">
                                             <h3>${o.created}</h3>
                                         </td>
-                                        <td class="price"><a href="${url}?uid=${o.userID}">${o.userID}</a></td> 
+                                        <td class="price"><a href="${url}?Uid=${o.userID}">${o.userID}</a></td> 
                                         <td class="price">0${o.phone}</td>
                                         
                                         

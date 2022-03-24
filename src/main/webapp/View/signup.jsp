@@ -52,19 +52,18 @@
             </div>
             <form action="./signup">
                 <h3>Sign Up</h3>
-                <p class="help-block alert-danger" style="color: red">${requestScope.MSG_SIGNUP}</p>
+                
                 <label for="username">Username</label>
                 <input type="text" placeholder="Username" name="username" >
 
                 <label for="password">Password</label>
 
-                <input onChange="onChange()"  type="password" size="60" placeholder="Password"  value="" name="Pass" required pattern="\S+"/><br>
-
+                <input onChange="onChange()"  type="password" size="60" placeholder="Password"  value="" name="password" required pattern="\S+"/><br>
+                <p class="help-block alert-danger" style="color: red">${requestScope.MSG_SIGNUP}</p>
                 <label for="repassword">Re-Password</label>
 
                 <input onChange="onChange()" type="password" size="60" value="" name="repassword" placeholder="Re-Password"  required pattern="\S+"/><br>
 
-                <p class="help-block alert-danger">${requestScope.MSG_SIGNUP}</p>
                 <p>Already have account?  <a href ="login" style="color: red">Login</a></p>
                 <input type="submit" value="Sign Up" style="color: white; border-radius: 10px; background: orange; " id="btn">
             </form>
@@ -73,7 +72,7 @@
 
     <script>
         function onChange() {
-                const password = document.querySelector('input[name=Pass]');
+                const password = document.querySelector('input[name=password]');
                 const confirm = document.querySelector('input[name=repassword]');
                 if (confirm.value === password.value) {
                     confirm.setCustomValidity('');

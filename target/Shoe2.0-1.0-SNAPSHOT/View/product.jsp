@@ -95,12 +95,12 @@
 	          	</div>
 	          	<div class="w-100"></div>
 	          	<div class="col-md-12">
-	          		<p style="color: #000;">80 piece available</p>
+	          		
 	          	</div>
           	</div>
                     <p>
                         <input type="submit" class="btn btn-black py-3 px-5 mr-2" onclick="addtoCart(${detail.id})" value="Add to Cart">
-                        <a href="cart.html" class="btn btn-primary py-3 px-5">Buy now</a>
+                        <a href="cart?id=${o.id}&quantity=1&size=39&act=buy" class="btn btn-primary py-3 px-5">Buy now</a>
                     </p>
     		</form></div>
                     

@@ -72,8 +72,10 @@ public class CartControl extends HttpServlet {
         Cart cart = new Cart(txt,list);
         HttpSession session = request.getSession();
         session.setAttribute("CART", cart.getProductCart().size());
-
-        response.sendRedirect("product?pid="+id);
+        if(request.getParameter("act") == null){
+            response.sendRedirect("product?pid="+id);
+        }else response.sendRedirect("mycart");
+        
 }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -96,7 +96,7 @@
 
                                         <td class="product-remove"><a href="product?pid=${o.id}"><span class="ion-ios-eye"></span></a></td>
                                         <td class="product-remove"><a href="editproduct?id=${o.id}"><span class="ion-ios-settings"></span></a></td>                                   
-                                        <td class="product-remove"><a href="delete?pid=${o.id}" onclick="showMess(${o.id})"><span class="ion-ios-close"></span></a></td>
+                                        <td class="product-remove"><a href="#" onclick="showMess(${o.id})"><span class="ion-ios-close"></span></a></td>
 
                                     </tr><!-- END TR-->
                                 </c:forEach>

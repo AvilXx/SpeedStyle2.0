@@ -37,54 +37,9 @@ public class AddProductControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HashMap<String,String> errors = new HashMap<String,String>();
-        boolean hasError = false;
-        ProductDAO dao = new ProductDAO();
-        int id = dao.CountProduct()+ 1;
-        String Name = request.getParameter("Name");
-
-        if (Name==null){
-            errors.put("Name", "Name is empty");
-            hasError = true;
-
-            request.getRequestDispatcher("/View/Admin/AddNewProduct.jsp").forward(request, response);
-        }
-        else{
-        ProductSize pS = new ProductSize(id,0,0,0,0,0,0);
-        pS.setSize39(Integer.valueOf(request.getParameter("size39")));
-        pS.setSize40(Integer.valueOf(request.getParameter("size40")));
-        pS.setSize41(Integer.valueOf(request.getParameter("size41")));
-        pS.setSize42(Integer.valueOf(request.getParameter("size42")));
-        pS.setSize43(Integer.valueOf(request.getParameter("size43")));
-        pS.setSize44(Integer.valueOf(request.getParameter("size44")));
-
         
-        
-
-        Product p = new Product(id,"","",0,"","");                   
-        p.setName(request.getParameter("Name"));
-        p.setPrice(Double.parseDouble(request.getParameter("Price")));
-        p.setCategory(request.getParameter("Category"));
-        p.setImage_link(request.getParameter("image_link"));
-        p.setMain_description(request.getParameter("Description"));
-
-        if (hasError){
-            request.setAttribute("product", p);
-            request.setAttribute("sizeList", pS);
-            request.setAttribute("errors", errors);
-
-            RequestDispatcher rd = request.getRequestDispatcher("addproduct");
-            rd.forward(request, response);
-        }else{
-            log("Add Product " + p.getId());
-
-            dao.addProduct(p);
-            dao.addSizeProduct(pS);
-            response.sendRedirect(request.getContextPath()+"/productmanager");
-        }
     }     
-}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -98,8 +53,9 @@ public class AddProductControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        request.getRequestDispatcher("/View/Admin/AddNewProduct.jsp").forward(request, response);
+    } 
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -112,7 +68,38 @@ public class AddProductControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        boolean hasError = false;
+        ProductDAO dao = new ProductDAO();
+
+        String Name = request.getParameter("Name");
+
+        if (Name==null){
+            hasError = true;
+            
+        }
+        else{
+        int id = dao.CountProduct();
+        ProductSize pS = new ProductSize(id,0,0,0,0,0,0);
+        pS.setSize39(Integer.valueOf(request.getParameter("size39")));
+        pS.setSize40(Integer.valueOf(request.getParameter("size40")));
+        pS.setSize41(Integer.valueOf(request.getParameter("size41")));
+        pS.setSize42(Integer.valueOf(request.getParameter("size42")));
+        pS.setSize43(Integer.valueOf(request.getParameter("size43")));
+        pS.setSize44(Integer.valueOf(request.getParameter("size44")));
+               
+        Product p = new Product(pS.getId(),"","",0,"","");                   
+        p.setName(request.getParameter("Name"));
+        p.setPrice(Double.parseDouble(request.getParameter("Price")));
+        p.setCategory(request.getParameter("Category"));
+        p.setImage_link(request.getParameter("image_link"));
+        p.setMain_description(request.getParameter("Description"));
+
+        
+        boolean s = dao.addProduct(p);
+        if(s) dao.addSizeProduct(pS);
+        response.sendRedirect(request.getContextPath()+"/productmanager");
+        }
     }
 
     /**

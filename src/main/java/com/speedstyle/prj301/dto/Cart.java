@@ -25,13 +25,13 @@ public class Cart {
     public void setProductCart(List<ProductCart> products) {
         this.products = products;
     }
-    public int getQuantityById(int id){
-        return getProductCartById(id).getQuantity();
+    public int getQuantityById(int id,int size){
+        return getProductCartById(id,size).getQuantity();
     }
 
-    public ProductCart getProductCartById(int id){
+    public ProductCart getProductCartById(int id,int size){
         for(ProductCart i: products){
-            if (i.getProduct().getId()==id){
+            if (i.getProduct().getId()==id && i.getSize()==size){
                 return i; 
             }
         }
@@ -39,8 +39,8 @@ public class Cart {
     }
 
     public void addProductCart(ProductCart p, int quantity){
-        if(getProductCartById(p.getProduct().getId())!=null){
-            ProductCart m = getProductCartById(p.getProduct().getId());
+        if(getProductCartById(p.getProduct().getId(),p.getSize())!=null){
+            ProductCart m = getProductCartById(p.getProduct().getId(),p.getSize());
             if(m.getSize() == p.getSize()){
                 m.setQuantity(m.getQuantity()+ quantity);
             }else
@@ -49,9 +49,9 @@ public class Cart {
             products.add(p);  
     }
 
-    public void removeProductCart(int id){
-        if(getProductCartById(id)!=null){
-            products.remove(getProductCartById(id));
+    public void removeProductCart(int id,int size){
+        if(getProductCartById(id,size)!=null){
+            products.remove(getProductCartById(id,size));
         }
     }
 

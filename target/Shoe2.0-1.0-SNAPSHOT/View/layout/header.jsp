@@ -97,7 +97,7 @@
                       </div>
                   </li>
                 </c:if>
-                  <li class="nav-item cta cta-colored"><a href="mycart" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
+                  <li class="nav-item cta cta-colored"><a href="mycart" class="nav-link"><span class="icon-shopping_cart">[${sessionScope.CART}]</span></a></li>
 
 	        </ul>
 	      </div>

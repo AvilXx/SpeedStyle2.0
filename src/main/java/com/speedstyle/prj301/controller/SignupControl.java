@@ -21,8 +21,10 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "SignupControl", urlPatterns = {"/signup"})
 public class SignupControl extends HttpServlet {
+
     private static final String ERROR = "/View/signup.jsp";
     private static final String SUCCESS = "login";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,43 +38,40 @@ public class SignupControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String URL = ERROR;
-        String err="";
-        try {  
+        String err = "";
+        boolean checkValidation = true;
+        try {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-            
-            if(username.isEmpty() || password.isEmpty()){
+
+            if (username.isEmpty() || password.isEmpty()) {
                 err = "Username and password must not empty";
                 request.setAttribute("MSG_SIGNUP", err);
-            }else {
+                checkValidation = false;
+            } else {
                 UserDAO dao = new UserDAO();
                 User user = dao.checkLoginByUserName(username);
-                if (user == null) {            
-                    URL = SUCCESS;                           
+                if (user == null) {                  
                     dao.signUp(username, password);
                     err = "The account had created.";
                     request.setAttribute("MSG_SIGNUP", err);
-                }else{
+
+                } else {
                     err = "Username already exists.";
                     request.setAttribute("MSG_SIGNUP", err);
+                    checkValidation = false;
+                }
             }
-            } 
         } catch (Exception e) {
-        } finally{
-            if(URL==ERROR){
+        } finally {
+            if (URL == ERROR) {
                 request.getRequestDispatcher(URL).forward(request, response);
-            }else{
+            } else {
                 response.sendRedirect(SUCCESS);
-            }   
-}
-                       
+            }
         }
-        
-        
-       
-       
 
-    
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

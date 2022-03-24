@@ -36,6 +36,7 @@ public class DeleteProductControl extends HttpServlet {
         String pid = request.getParameter("pid");
 
         ProductDAO dao = new ProductDAO();
+        dao.DeleteProductSize(pid); 
         dao.DeleteProduct(pid);
         response.sendRedirect("productmanager");
     }
