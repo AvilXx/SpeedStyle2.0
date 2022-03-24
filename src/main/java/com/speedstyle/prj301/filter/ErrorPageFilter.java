@@ -14,6 +14,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author avillX
  */
+@WebFilter(filterName = "ErrorPageFilter", urlPatterns = {"./*"})
 public class ErrorPageFilter implements Filter {
     
     private static final boolean debug = true;
@@ -107,7 +109,7 @@ public class ErrorPageFilter implements Filter {
         HttpServletRequest htttpRequest = (HttpServletRequest) request;
         HttpServletResponse htttpResponse = (HttpServletResponse) response;
         String url = htttpRequest.getServletPath();
-        if ((url.endsWith(".jsp")) && (url.endsWith(".html")) &&!url.contains("Error.jsp")){
+        if ((url.endsWith(".html")) &&!url.contains("Error.jsp")){
             htttpResponse.sendRedirect("home");
         }
         chain.doFilter(request, response);

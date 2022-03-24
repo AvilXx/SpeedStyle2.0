@@ -48,7 +48,9 @@ public class UserDAO {
                     String userID = rs.getString("user_id");
                     String fullname = rs.getString("name");
                     String roleid = rs.getString("isAdmin");
-                    result = new User(userID ,username, password, fullname,"","","", roleid);
+                    String phone = rs.getString("phone");
+                    String address = rs.getString("address");
+                    result = new User(userID ,username, password, fullname,"",phone,address, roleid);
                 }
             }
         } catch (Exception e) {

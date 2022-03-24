@@ -80,15 +80,23 @@
                                                 <table style="margin: 4% 24%; font-size: 20px; ">
                                                     <input type="hidden" name="act" value="infor"/>
                                                     <tr>
-                                                        <td><mark>UserID: </mark>
-                                                        <td><mark>${requestScope.OrderInfo.userID}</mark>
+                                                        <td><mark>UserID: </mark></td>
+                                                        <td><mark style="font-weight: bold"><a href="user_infor?Uid=${requestScope.OrderInfo.userID}">${requestScope.OrderInfo.userID}</a></mark></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><mark>Phone: </mark>
-                                                        <td><mark>0${requestScope.OrderInfo.phone}</mark>
+                                                        <td><mark>Phone: </mark></td>
+                                                        <td><mark>0${requestScope.OrderInfo.phone}</mark></td>
                                                     <tr>
-                                                        <td><mark>Address: </mark>
-                                                        <td><mark>  ${requestScope.OrderInfo.address}</mark>
+                                                        <td><mark>Address: </mark></td>
+                                                        <td><mark>  ${requestScope.OrderInfo.address}</mark></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><mark>Mess: </mark></td>
+                                                        <td><mark>  ${requestScope.OrderInfo.mess}</mark></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><mark>Date: </mark></td>
+                                                        <td><mark>  ${requestScope.OrderInfo.created}</mark></td>
                                                     </tr>
                                                     
                                                     

@@ -295,17 +295,15 @@
         </div>
         
        <section>
-            <div>
-                <img style="width: 30%; margin-left: 35%; margin-top: 3%;" class="img-fluid" src="${p.image_link}" alt="Colorlib Template">
-            </div>
+            
 
             <div class="page">
                 <form action="./addproduct" method="POST">
                     <label class="field field_v1">
-                        <p><input type="hidden" class="field__input" placeholder="" name="id" autocomplete="off" value="${p.id}"/></p>
+                        
                     </label>
                     <label class="field field_v1">
-                        <input type="text" class="field__input" placeholder="" name="Name" autocomplete="off" value="" required />
+                        <input type="text" class="field__input" placeholder="" name="Name" autocomplete="off" value="" required pattern="\S+" />
                         <span class="field__label-wrap">
                             <span class="field__label">Input Name Product</span>
                         </span>
@@ -334,7 +332,7 @@
                         </span>
                     </label>  
                     <label class="field field_v3">
-                        <input style="width: 440px;" class="field__input" placeholder="" name="Description" autocomplete="off" value="" required/>
+                        <input style="width: 440px;" class="field__input" placeholder="" name="Description" autocomplete="off" value="" required pattern="\S+"/>
                         <span class="field__label-wrap">
                             <span class="field__label">Input Description</span>
                         </span>
@@ -349,7 +347,7 @@
                     </label>
 
                     <label>
-                        <input class="linktr__goal r-link" style="margin-left: 40%;" onclick="checkBlank()" type="Submit" value="Submit">
+                        <input  style="margin-left: 40%;" onclick="checkBlank()" type="submit" value="Submit">
                     </label>
                 </form>
             </div>
